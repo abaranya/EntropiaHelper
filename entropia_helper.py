@@ -1,14 +1,16 @@
-import sys  # Import the sys module
-
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy, QCheckBox, QLineEdit
-from PyQt6.QtGui import QFont, QCloseEvent
-from PyQt6.QtCore import Qt  # Import the Qt module for flags
-import json
+import sys
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy, QCheckBox, QLineEdit, QStyle
+from PyQt6.QtGui import QFont, QIcon
+from PyQt6.QtCore import Qt
+import qdarktheme
+import yaml
 
 class EntropiaHelperApp(QMainWindow):
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Entropia Helper")
+        self.play_icon = self.style().standardIcon(QStyle.StandardPixmap.SP_MediaPlay)
+        self.pause_icon = self.style().standardIcon(QStyle.StandardPixmap.SP_MediaPause)
         self.setStyleSheet("background-color: #202020; color: white;")
         self.config_window = None  # Initialize config_window as None
 
@@ -23,9 +25,11 @@ class EntropiaHelperApp(QMainWindow):
 
         layout.addItem(QSpacerItem(20, 20, QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Minimum)) # Add spacer item to push everything to the right
 
-        self.start_stop_button = QPushButton("Start", self)
+        self.start_stop_button = QPushButton(self)
         self.start_stop_button.setStyleSheet("background-color: #404040; color: white;")
-        self.start_stop_button.clicked.connect(self.toggle_start_stop)
+        self.start_stop_button.setIcon(self.play_icon)
+        self.start_stop_button.state = "paused"
+        self.start_stop_button.clicked.connect(self.toggle_start_stop)  # Connect the button click event to toggle_start_stop method
         layout.addWidget(self.start_stop_button)
 
         bold_font = QFont()
@@ -66,25 +70,36 @@ class EntropiaHelperApp(QMainWindow):
         layout.addWidget(self.config_button)
 
         # Add minimize button
-        self.minimize_button = QPushButton("Minimize", self)
+        self.minimize_button = QPushButton(self)
         self.minimize_button.setStyleSheet("background-color: #404040; color: white;")
         self.minimize_button.clicked.connect(self.showMinimized)
+        self.minimize_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_TitleBarMinButton))
         layout.addWidget(self.minimize_button)
 
-        # Add close button
-        self.close_button = QPushButton("Close", self)
+        # Add close button with close icon
+        self.close_button = QPushButton(self)
         self.close_button.setStyleSheet("background-color: #404040; color: white;")
+        self.close_button.setIcon(QIcon.fromTheme("window-close"))  # Use system default close icon
+        if self.close_button.icon().isNull():  # If theme icon not available, use platform-specific icon
+            self.close_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_TitleBarCloseButton))
         self.close_button.clicked.connect(self.close)
         layout.addWidget(self.close_button)
 
     def toggle_start_stop(self):
-        if self.start_stop_button.text() == "Start":
-            self.start_stop_button.setText("Stop")
+        current_icon = self.start_stop_button.icon()
+        if self.start_stop_button.state == "paused":
+            # Start the application logic
+            self.start_stop_button.state = "running"
             self.running = True
             self.start_reading()
-        else:
-            self.start_stop_button.setText("Start")
+            # Change icon to pause when clicked
+            self.start_stop_button.setIcon(self.pause_icon)
+        elif self.start_stop_button.state == "running":
+            self.start_stop_button.state = "paused"
+            # Stop the application logic
             self.running = False
+            # Change icon to play when clicked
+            self.start_stop_button.setIcon(self.play_icon)
 
     def open_config_window(self):
         if self.config_window is None:  # Check if config_window is already created
@@ -97,16 +112,18 @@ class EntropiaHelperApp(QMainWindow):
             central_widget.setLayout(layout)
             self.config_window.setCentralWidget(central_widget)
 
-           # File Path Entry
+            file_path_layout = QHBoxLayout()
+            layout.addLayout(file_path_layout)
+
             file_path_label = QLabel("File Path:", self)
-            layout.addWidget(file_path_label)
+            file_path_layout.addWidget(file_path_label)
             self.file_path_entry = QLineEdit(self)
             layout.addWidget(self.file_path_entry)
 
             # Load configuration from file
             try:
-                with open("config.json", "r") as file:
-                    config = json.load(file)
+                with open("config.yaml", "r") as file:
+                    config = yaml.safe_load(file)
                     transparency = config.get("transparency", 0.6)
                     file_path = config.get("file_path", "")
                     start_from_end = config.get("start_from_end", False)
@@ -120,13 +137,6 @@ class EntropiaHelperApp(QMainWindow):
                 start_date = ""
                 start_time = ""
 
-            # First Line: File Path and Start from End checkbox
-            file_path_layout = QHBoxLayout()
-            layout.addLayout(file_path_layout)
-
-            file_path_label = QLabel("File Path:", self)
-            file_path_layout.addWidget(file_path_label)
-            self.file_path_entry = QLineEdit(self)
             self.file_path_entry.setText(file_path)
             self.file_path_entry.setStyleSheet("background-color: #303030; color: white;")
             file_path_layout.addWidget(self.file_path_entry)
@@ -136,7 +146,6 @@ class EntropiaHelperApp(QMainWindow):
             self.start_from_end_checkbox.setChecked(start_from_end)
             file_path_layout.addWidget(self.start_from_end_checkbox)
 
-            # Second Line: Start Date and Start Time
             start_time_layout = QHBoxLayout()
             layout.addLayout(start_time_layout)
 
@@ -154,7 +163,6 @@ class EntropiaHelperApp(QMainWindow):
             self.start_time_entry.setStyleSheet("background-color: #303030; color: white;")
             start_time_layout.addWidget(self.start_time_entry)
 
-            # Third Line: Transparency
             transparency_layout = QHBoxLayout()
             layout.addLayout(transparency_layout)
 
@@ -165,7 +173,6 @@ class EntropiaHelperApp(QMainWindow):
             self.transparency_entry.setStyleSheet("background-color: #303030; color: white;")
             transparency_layout.addWidget(self.transparency_entry)
 
-            # Fourth Line: Save Button
             save_layout = QHBoxLayout()
             layout.addLayout(save_layout)
 
@@ -182,36 +189,34 @@ class EntropiaHelperApp(QMainWindow):
         pass  # Placeholder for reading logic
 
     def load_config(self):
-        # Load configuration from file
         try:
-            with open("config.json", "r") as file:
-                config = json.load(file)
+            with open("config.yaml", "r") as file:
+                config = yaml.safe_load(file)
                 transparency = config.get("transparency", 0.6)
-                self.setWindowOpacity(float(transparency))  # Set transparency of the main window
+                self.setWindowOpacity(float(transparency))
         except FileNotFoundError:
-            pass  # Ignore if config file doesn't exist
+            pass
 
     def save_config(self):
-        # Save configuration to file
         config = {
             "file_path": self.file_path_entry.text(),
             "start_from_end": self.start_from_end_checkbox.isChecked(),
             "start_date": self.start_date_entry.text(),
             "start_time": self.start_time_entry.text(),
-            "transparency": float(self.transparency_entry.text())  # Convert transparency to float
+            "transparency": float(self.transparency_entry.text())
         }
-        with open("config.json", "w") as file:
-            json.dump(config, file)
-        self.config_window.close()  # Close config window after saving
+        with open("config.yaml", "w") as file:
+            yaml.dump(config, file)
+        self.config_window.close()
 
-    def closeEvent(self, event: QCloseEvent):
-        # Override close event to handle window closing
-        # Save configuration before closing the main window
+    def closeEvent(self, event):
         self.save_config()
-        event.accept()  # Accept the close event
+        event.accept()
 
 def main():
     app = QApplication(sys.argv)
+
+    qdarktheme.setup_theme()
     entropia_helper_app = EntropiaHelperApp()
     entropia_helper_app.show()
     sys.exit(app.exec())
