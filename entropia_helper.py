@@ -85,6 +85,9 @@ class EntropiaHelperApp(QMainWindow):
         self.close_button.clicked.connect(self.close)
         layout.addWidget(self.close_button)
 
+        # Make the window stay always on top
+        self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
+
     def toggle_start_stop(self):
         current_icon = self.start_stop_button.icon()
         if self.start_stop_button.state == "paused":
