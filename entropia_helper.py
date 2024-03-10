@@ -64,9 +64,10 @@ class EntropiaHelperApp(QMainWindow):
         self.setFixedHeight(self.start_stop_button.sizeHint().height() + 20)  # Adding 20 pixels margin
 
         # Add Config button at the end
-        self.config_button = QPushButton("Config", self)
+        self.config_button = QPushButton(self)
         self.config_button.setStyleSheet("background-color: #404040; color: white;")
         self.config_button.clicked.connect(self.open_config_window)
+        self.config_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogNewFolder)) # Set system default setting icon
         layout.addWidget(self.config_button)
 
         # Add minimize button
@@ -87,6 +88,7 @@ class EntropiaHelperApp(QMainWindow):
 
         # Make the window stay always on top
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
+
 
     def toggle_start_stop(self):
         current_icon = self.start_stop_button.icon()
