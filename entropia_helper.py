@@ -3,7 +3,7 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QHBo
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 import qdarktheme
-import yaml
+from config import ConfigWindow
 
 class EntropiaHelperApp(QMainWindow):
     def __init__(self):
@@ -12,7 +12,7 @@ class EntropiaHelperApp(QMainWindow):
         self.play_icon = self.style().standardIcon(QStyle.StandardPixmap.SP_MediaPlay)
         self.pause_icon = self.style().standardIcon(QStyle.StandardPixmap.SP_MediaPause)
         self.setStyleSheet("background-color: #202020; color: white;")
-        self.config_window = None  # Initialize config_window as None
+        self.config_window = ConfigWindow()  # Initialize config_window to be used to load config_dta
 
         self.create_widgets()
         self.load_config()  # Load configuration from file
@@ -106,84 +106,7 @@ class EntropiaHelperApp(QMainWindow):
 
     def open_config_window(self):
         if self.config_window is None:  # Check if config_window is already created
-            self.config_window = QMainWindow()
-            self.config_window.setWindowTitle("Configuration")
-            self.config_window.setStyleSheet("background-color: #202020; color: white;")
-
-            central_widget = QWidget()
-            layout = QVBoxLayout()  # Use QVBoxLayout for vertical layout
-            central_widget.setLayout(layout)
-            self.config_window.setCentralWidget(central_widget)
-
-            file_path_layout = QHBoxLayout()
-            layout.addLayout(file_path_layout)
-
-            file_path_label = QLabel("File Path:", self)
-            file_path_layout.addWidget(file_path_label)
-            self.file_path_entry = QLineEdit(self)
-            layout.addWidget(self.file_path_entry)
-
-            # Load configuration from file
-            try:
-                with open("config.yaml", "r") as file:
-                    config = yaml.safe_load(file)
-                    transparency = config.get("transparency", 0.6)
-                    file_path = config.get("file_path", "")
-                    start_from_end = config.get("start_from_end", False)
-                    start_date = config.get("start_date", "")
-                    start_time = config.get("start_time", "")
-
-            except FileNotFoundError:
-                transparency = 0.6
-                file_path = ""
-                start_from_end = False
-                start_date = ""
-                start_time = ""
-
-            self.file_path_entry.setText(file_path)
-            self.file_path_entry.setStyleSheet("background-color: #303030; color: white;")
-            file_path_layout.addWidget(self.file_path_entry)
-
-            self.start_from_end_checkbox = QCheckBox("Start from End", self)
-            self.start_from_end_checkbox.setStyleSheet("background-color: #202020; color: white;")
-            self.start_from_end_checkbox.setChecked(start_from_end)
-            file_path_layout.addWidget(self.start_from_end_checkbox)
-
-            start_time_layout = QHBoxLayout()
-            layout.addLayout(start_time_layout)
-
-            start_date_label = QLabel("Start Date:", self)
-            start_time_layout.addWidget(start_date_label)
-            self.start_date_entry = QLineEdit(self)
-            self.start_date_entry.setText(start_date)
-            self.start_date_entry.setStyleSheet("background-color: #303030; color: white;")
-            start_time_layout.addWidget(self.start_date_entry)
-
-            start_time_label = QLabel("Start Time:", self)
-            start_time_layout.addWidget(start_time_label)
-            self.start_time_entry = QLineEdit(self)
-            self.start_time_entry.setText(start_time)
-            self.start_time_entry.setStyleSheet("background-color: #303030; color: white;")
-            start_time_layout.addWidget(self.start_time_entry)
-
-            transparency_layout = QHBoxLayout()
-            layout.addLayout(transparency_layout)
-
-            transparency_label = QLabel("Transparency:", self)
-            transparency_layout.addWidget(transparency_label)
-            self.transparency_entry = QLineEdit(self)
-            self.transparency_entry.setText(str(transparency))
-            self.transparency_entry.setStyleSheet("background-color: #303030; color: white;")
-            transparency_layout.addWidget(self.transparency_entry)
-
-            save_layout = QHBoxLayout()
-            layout.addLayout(save_layout)
-
-            save_button = QPushButton("Save", self)
-            save_button.setStyleSheet("background-color: #404040; color: white;")
-            save_button.clicked.connect(self.save_config)
-            save_layout.addWidget(save_button)
-
+            self.config_window = ConfigWindow()
             self.config_window.show()
         else:
             self.config_window.show()
@@ -192,29 +115,17 @@ class EntropiaHelperApp(QMainWindow):
         pass  # Placeholder for reading logic
 
     def load_config(self):
-        try:
-            with open("config.yaml", "r") as file:
-                config = yaml.safe_load(file)
-                transparency = config.get("transparency", 0.6)
-                self.setWindowOpacity(float(transparency))
-        except FileNotFoundError:
-            pass
+        config_data = self.config_window.load_config()
+        self.transparency = config_data.get("transparency", 0.6)
+        self.setWindowOpacity(float(self.transparency))
 
     def save_config(self):
-        config = {
-            "file_path": self.file_path_entry.text(),
-            "start_from_end": self.start_from_end_checkbox.isChecked(),
-            "start_date": self.start_date_entry.text(),
-            "start_time": self.start_time_entry.text(),
-            "transparency": float(self.transparency_entry.text())
-        }
-        with open("config.yaml", "w") as file:
-            yaml.dump(config, file)
-        self.config_window.close()
+        # Implement save_config logic if needed
+        pass
 
     def closeEvent(self, event):
-        self.save_config()
-        event.accept()
+        # Implement closeEvent logic if needed
+        pass
 
 def main():
     app = QApplication(sys.argv)
