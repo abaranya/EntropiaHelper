@@ -63,6 +63,12 @@ class EntropiaHelperApp(QMainWindow):
         # Set fixed height for the main window
         self.setFixedHeight(self.start_stop_button.sizeHint().height() + 20)  # Adding 20 pixels margin
 
+        self.shop_button = QPushButton(self)
+        self.shop_button.setStyleSheet("background-color: #404040; color: white;")
+        # self.shop_button.clicked.connect(self.shop_button_clicked)  # Connect the button click event to a method
+        self.shop_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogListView))
+        layout.addWidget(self.shop_button)
+
         # Add Config button at the end
         self.config_button = QPushButton(self)
         self.config_button.setStyleSheet("background-color: #404040; color: white;")
