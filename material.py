@@ -71,6 +71,7 @@ class MaterialWindow(QMainWindow):
         button_layout = QHBoxLayout()
         search_button = QPushButton("Search")
         search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
+        search_button.clicked.connect(self.search_material)
         save_button = QPushButton("Save")
         save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
         save_button.clicked.connect(self.save_material)  # Connect save button to save_material function
@@ -113,6 +114,24 @@ class MaterialWindow(QMainWindow):
             print("Material saved successfully:", material.__dict__)
         else:
             QMessageBox.warning(self, "Validation Error", "Please fill in all fields correctly.")
+
+    def search_material(self):
+        search_text = self.name_edit.text().strip()
+        if search_text:
+            # Search for materials whose name contains the search text
+            found_materials = [material for material in self.materials.values() if search_text in material.name]
+            if found_materials:
+                # If found, display the first found material in the window fields
+                material = found_materials[0]
+                self.name_edit.setText(material.name)
+                self.tt_edit.setValue(material.tt_value)
+                self.markup_spinbox.setValue(material.markup_value)
+                entry_date = QDate.fromString(material.entry_date, "yyyy-MM-dd")
+                self.entry_edit.setDate(entry_date)
+            else:
+                QMessageBox.warning(self, "Search Result", "No materials found matching the search criteria.")
+        else:
+            QMessageBox.warning(self, "Search Error", "Please enter a search text.")
 
     @classmethod
     def get_material(cls, name):
