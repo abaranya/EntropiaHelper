@@ -1,5 +1,6 @@
-from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout
+from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout, QPushButton, QStyle
 from PyQt6.QtCore import Qt
+from material import MaterialWindow
 
 class CraftWindow(QMainWindow):
     def __init__(self, transparency):
@@ -74,3 +75,18 @@ class CraftWindow(QMainWindow):
         total_cost_value = QLineEdit()
         layout.addWidget(total_cost_label)
         layout.addWidget(total_cost_value)
+
+        # Buttons for materials and blueprint
+        button_layout = QHBoxLayout()
+        materials_button = QPushButton("Materials")
+        materials_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_BrowserReload))
+        materials_button.clicked.connect(self.open_material_window)  # Connect the button click event to open_material_window method
+        blueprint_button = QPushButton("Blueprint")
+        blueprint_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
+        button_layout.addWidget(materials_button)
+        button_layout.addWidget(blueprint_button)
+        layout.addLayout(button_layout)
+
+    def open_material_window(self):
+        self.material_window = MaterialWindow(self.windowOpacity())  # Pass transparency value to MaterialWindow
+        self.material_window.show()
