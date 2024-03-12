@@ -4,6 +4,7 @@ from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 import qdarktheme
 from config import ConfigWindow
+from craft import CraftWindow
 
 class EntropiaHelperApp(QMainWindow):
     def __init__(self):
@@ -13,6 +14,7 @@ class EntropiaHelperApp(QMainWindow):
         self.pause_icon = self.style().standardIcon(QStyle.StandardPixmap.SP_MediaPause)
         self.setStyleSheet("background-color: #202020; color: white;")
         self.config_window = ConfigWindow()  # Initialize config_window to be used to load config_dta
+        self.craft_window = None  # Initialize craft_window attribute
 
         self.create_widgets()
         self.load_config()  # Load configuration from file
@@ -69,6 +71,13 @@ class EntropiaHelperApp(QMainWindow):
         self.shop_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogListView))
         layout.addWidget(self.shop_button)
 
+        # Add the "craft" button and connect it to open_craft_window method
+        self.craft_button = QPushButton(self)
+        self.craft_button.setStyleSheet("background-color: #404040; color: white;")
+        self.craft_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_CommandLink))
+        self.craft_button.clicked.connect(self.open_craft_window)
+        layout.addWidget(self.craft_button)
+
         # Add Config button at the end
         self.config_button = QPushButton(self)
         self.config_button.setStyleSheet("background-color: #404040; color: white;")
@@ -118,6 +127,13 @@ class EntropiaHelperApp(QMainWindow):
             self.config_window.show()
         else:
             self.config_window.show()
+
+    def open_craft_window(self):
+        if self.craft_window is None:  # Check if craft_window is already created
+            self.craft_window = CraftWindow(self.transparency)
+            self.craft_window.show()
+        else:
+            self.craft_window.show()
 
     def start_reading(self):
         pass  # Placeholder for reading logic
