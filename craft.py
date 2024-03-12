@@ -1,4 +1,4 @@
-from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QPushButton, QVBoxLayout, QWidget
+from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout
 from PyQt6.QtCore import Qt
 
 class CraftWindow(QMainWindow):
@@ -18,25 +18,59 @@ class CraftWindow(QMainWindow):
         layout = QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # Add widgets
-        self.blueprint_combo = QComboBox()
-        layout.addWidget(QLabel("Select Blueprint:"))
-        layout.addWidget(self.blueprint_combo)
+        # Blueprint selection
+        blueprint_label = QLabel("Blueprint:")
+        blueprint_combo = QComboBox()
+        layout.addWidget(blueprint_label)
+        layout.addWidget(blueprint_combo)
 
-        self.attempts_edit = QLineEdit()
-        layout.addWidget(QLabel("Number of Attempts:"))
-        layout.addWidget(self.attempts_edit)
+        # Number of attempts
+        attempts_label = QLabel("Number of Attempts:")
+        attempts_edit = QLineEdit()
+        attempts_edit.setMaximumWidth(50)
+        attempts_label.setBuddy(attempts_edit)
 
-        self.cost_per_attempt_label = QLabel("Cost per Attempt:")
-        layout.addWidget(self.cost_per_attempt_label)
+        # Blueprint and Number of attempts layout
+        blueprint_layout = QHBoxLayout()
+        blueprint_layout.addWidget(blueprint_label)
+        blueprint_layout.addWidget(blueprint_combo, 3)  # Blueprint occupies 75% of width
+        blueprint_layout.addWidget(attempts_label)
+        blueprint_layout.addWidget(attempts_edit)  # Number of attempts occupies the remaining space
+        layout.addLayout(blueprint_layout)
 
-        self.total_cost_label = QLabel("Total Cost:")
-        layout.addWidget(self.total_cost_label)
+        # Materials grid
+        materials_label = QLabel("Materials:")
+        materials_grid = QGridLayout()
+        materials_grid.addWidget(QLabel("Qty"), 0, 0)
+        materials_grid.addWidget(QLabel("Material"), 0, 1)
+        materials_grid.addWidget(QLabel("TT Value"), 0, 2)
+        materials_grid.addWidget(QLabel("Markup"), 0, 3)
+        materials_grid.addWidget(QLabel("Total Cost"), 0, 4)
 
-        self.calculate_button = QPushButton("Calculate")
-        self.calculate_button.clicked.connect(self.calculate_cost)
-        layout.addWidget(self.calculate_button)
+        # Dummy data for materials (replace with actual data)
+        material_data = [
+            {"qty": "", "material": "", "tt_value": "", "markup": "", "total_cost": ""},
+            {"qty": "", "material": "", "tt_value": "", "markup": "", "total_cost": ""},
+            {"qty": "", "material": "", "tt_value": "", "markup": "", "total_cost": ""},
+        ]
 
-    def calculate_cost(self):
-        # Implement cost calculation logic here
-        pass
+        for row, material_info in enumerate(material_data, start=1):
+            for col, (label, value) in enumerate(material_info.items()):
+                widget = QLineEdit() if label != "Material" else QComboBox()  # Use QComboBox for Material column
+                widget.setText(value)  # Set text for QLineEdit widgets
+                materials_grid.addWidget(widget, row, col)
+
+        layout.addWidget(materials_label)
+        layout.addLayout(materials_grid)
+
+        # Cost per attempt
+        cost_per_attempt_label = QLabel("Cost per Attempt:")
+        cost_per_attempt_value = QLineEdit()
+        layout.addWidget(cost_per_attempt_label)
+        layout.addWidget(cost_per_attempt_value)
+
+        # Total cost
+        total_cost_label = QLabel("Total Cost:")
+        total_cost_value = QLineEdit()
+        layout.addWidget(total_cost_label)
+        layout.addWidget(total_cost_value)
