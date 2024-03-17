@@ -1,23 +1,19 @@
 from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout, QPushButton, QStyle
 from PyQt6.QtCore import Qt
 from material import MaterialWindow
+from blueprint import BlueprintWindow
 
 class CraftWindow(QMainWindow):
     def __init__(self, transparency):
         super().__init__()
         self.setWindowTitle("Crafting Window")
-
-        # Set window opacity based on the transparency value passed from the main application
         self.setWindowOpacity(transparency)
-
-        # Set the window to stay on top of other windows
         self.setWindowFlag(Qt.WindowType.WindowStaysOnTopHint)
 
         central_widget = QWidget()
         self.setCentralWidget(central_widget)
 
-        layout = QVBoxLayout()
-        central_widget.setLayout(layout)
+        layout = QVBoxLayout(central_widget)
 
         # Blueprint selection
         blueprint_label = QLabel("Blueprint:")
@@ -83,6 +79,7 @@ class CraftWindow(QMainWindow):
         materials_button.clicked.connect(self.open_material_window)  # Connect the button click event to open_material_window method
         blueprint_button = QPushButton("Blueprint")
         blueprint_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
+        blueprint_button.clicked.connect(self.open_blueprint_window)  # Connect the button click event to open_blueprint_window method
         button_layout.addWidget(materials_button)
         button_layout.addWidget(blueprint_button)
         layout.addLayout(button_layout)
@@ -90,3 +87,7 @@ class CraftWindow(QMainWindow):
     def open_material_window(self):
         self.material_window = MaterialWindow(self.windowOpacity())  # Pass transparency value to MaterialWindow
         self.material_window.show()
+
+    def open_blueprint_window(self):
+        self.blueprint_window = BlueprintWindow(self.windowOpacity())  # Pass transparency value to BlueprintWindow
+        self.blueprint_window.show()
