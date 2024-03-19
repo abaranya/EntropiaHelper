@@ -77,10 +77,13 @@ class CraftWindow(QMainWindow):
         materials_button = QPushButton("Materials")
         materials_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_BrowserReload))
         materials_button.clicked.connect(self.open_material_window)  # Connect the button click event to open_material_window method
+        items_button = QPushButton("Items")
+        items_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
         blueprint_button = QPushButton("Blueprint")
         blueprint_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
         blueprint_button.clicked.connect(self.open_blueprint_window)  # Connect the button click event to open_blueprint_window method
         button_layout.addWidget(materials_button)
+        button_layout.addWidget(items_button)
         button_layout.addWidget(blueprint_button)
         layout.addLayout(button_layout)
 
