@@ -1,23 +1,39 @@
 import json
 import os
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, QMessageBox
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, QDoubleSpinBox, QComboBox,QMessageBox
 from PyQt6.QtCore import Qt
 
 class Item:
-    def __init__(self, name, description, category):
+    def __init__(self, name, description, category, value, markup, tt_cost, full_cost, cost_markup):
         self.name = name
         self.description = description
         self.category = category
+        self.value = value
+        self.markup = markup
+        self.tt_cost = tt_cost
+        self.full_cost = full_cost
+        self.cost_markup = cost_markup
 
     def to_dict(self):
         return {
             "name": self.name,
             "description": self.description,
-            "category": self.category
+            "category": self.category,
+            "value": self.value,
+            "markup": self.markup,
+            "tt_cost": self.tt_cost,
+            "full_cost": self.full_cost,
+            "cost_markup": self.cost_markup
         }
+
+from PyQt6.QtWidgets import QDoubleSpinBox
 
 class ItemWindow(QMainWindow):
     items = {}  # Dictionary to store items
+    categories = ["Armor Enhancer", "Armor Part", "Armor Plating", "Clothes", "Decoration", "Excavator",
+                  "Excavator Enhancer", "Finder", "Finder Amplifier", "Furniture", "Material", "Medical Enhancer",
+                  "Medical Tool", "Misc. Tool", "Personal Effect", "Refiner", "Scanner", "Sign",
+                  "Storage Container", "Vehicle", "Weapon", "Weapon Attachment", "Weapon Enhancer"]
 
     def __init__(self, transparency):
         super().__init__()
@@ -34,25 +50,84 @@ class ItemWindow(QMainWindow):
         layout = QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # Name
+        # First Line: Name and Category Labels
+        first_line_layout = QHBoxLayout()
         name_label = QLabel("Name:")
-        self.name_edit = QLineEdit()
-        layout.addWidget(name_label)
-        layout.addWidget(self.name_edit)
+        category_label = QLabel("Category:")
+        first_line_layout.addWidget(name_label)
+        first_line_layout.addWidget(category_label)
+        layout.addLayout(first_line_layout)
 
-        # Description
+        # Second Line: Name and Category Fields
+        second_line_layout = QHBoxLayout()
+        self.name_edit = QLineEdit()
+        self.category_combo = QComboBox()
+        self.category_combo.addItems(self.categories)
+        second_line_layout.addWidget(self.name_edit)
+        second_line_layout.addWidget(self.category_combo)
+        layout.addLayout(second_line_layout)
+
+        # Third Line: Description Label
         description_label = QLabel("Description:")
-        self.description_edit = QLineEdit()
         layout.addWidget(description_label)
+
+        # Fourth Line: Description Field
+        self.description_edit = QLineEdit()
         layout.addWidget(self.description_edit)
 
-        # Category
-        category_label = QLabel("Category:")
-        self.category_edit = QLineEdit()
-        layout.addWidget(category_label)
-        layout.addWidget(self.category_edit)
+        # Fifth Line: Value and Markup Labels
+        fifth_line_layout = QHBoxLayout()
+        value_label = QLabel("Value:")
+        markup_label = QLabel("Markup:")
+        fifth_line_layout.addWidget(value_label)
+        fifth_line_layout.addWidget(markup_label)
+        layout.addLayout(fifth_line_layout)
 
-        # Search and Save buttons
+        # Sixth Line: Value and Markup Fields
+        sixth_line_layout = QHBoxLayout()
+        self.value_edit = QDoubleSpinBox()
+        self.value_edit.setDecimals(2)
+        self.value_edit.setSuffix(" PED")
+        self.value_edit.setMaximum(9999999.99)
+        self.markup_edit = QDoubleSpinBox()
+        self.markup_edit.setDecimals(2)
+        self.markup_edit.setSuffix(" %")
+        self.markup_edit.setMaximum(9999999.99)
+
+        sixth_line_layout.addWidget(self.value_edit)
+        sixth_line_layout.addWidget(self.markup_edit)
+        layout.addLayout(sixth_line_layout)
+
+        # Seventh Line: TT Cost, Full Cost, and Cost Markup Labels
+        seventh_line_layout = QHBoxLayout()
+        tt_cost_label = QLabel("TT Cost:")
+        full_cost_label = QLabel("Full Cost:")
+        cost_markup_label = QLabel("Cost Markup:")
+        seventh_line_layout.addWidget(tt_cost_label)
+        seventh_line_layout.addWidget(full_cost_label)
+        seventh_line_layout.addWidget(cost_markup_label)
+        layout.addLayout(seventh_line_layout)
+
+        # Eighth Line: TT Cost, Full Cost, and Cost Markup Fields
+        eighth_line_layout = QHBoxLayout()
+        self.tt_cost_edit = QDoubleSpinBox()
+        self.tt_cost_edit.setDecimals(2)
+        self.tt_cost_edit.setSuffix(" PED")
+        self.tt_cost_edit.setMaximum(9999999.99)
+        self.full_cost_edit = QDoubleSpinBox()
+        self.full_cost_edit.setDecimals(2)
+        self.full_cost_edit.setSuffix(" PED")
+        self.full_cost_edit.setMaximum(9999999.99)
+        self.cost_markup_edit = QDoubleSpinBox()
+        self.cost_markup_edit.setDecimals(2)
+        self.cost_markup_edit.setSuffix(" %")
+        self.cost_markup_edit.setMaximum(9999999.99)
+        eighth_line_layout.addWidget(self.tt_cost_edit)
+        eighth_line_layout.addWidget(self.full_cost_edit)
+        eighth_line_layout.addWidget(self.cost_markup_edit)
+        layout.addLayout(eighth_line_layout)
+
+        # Ninth Line: Search and Save buttons
         button_layout = QHBoxLayout()
         search_button = QPushButton("Search")
         search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
@@ -62,6 +137,27 @@ class ItemWindow(QMainWindow):
         button_layout.addWidget(search_button)
         button_layout.addWidget(save_button)
         layout.addLayout(button_layout)
+
+    def search_item(self):
+        search_query = self.name_edit.text().strip()
+        if search_query:
+            found_item = self.items.get(search_query)
+            if found_item:
+                # Update the fields with the details of the found item
+                self.name_edit.setText(found_item.name)
+                self.description_edit.setText(found_item.description)
+                self.category_edit.setText(found_item.category)
+                self.value_edit.setValue(found_item.value)
+                self.markup_edit.setValue(found_item.markup)
+                self.tt_cost_edit.setValue(found_item.tt_cost)
+                self.full_cost_edit.setValue(found_item.full_cost)
+                self.cost_markup_edit.setValue(found_item.cost_markup)
+
+                QMessageBox.information(self, "Search Result", "Item found and details updated.")
+            else:
+                QMessageBox.information(self, "Search Result", "No item found matching the search query.")
+        else:
+            QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
     def load_items(self):
         if os.path.exists('items.json'):  # Check if the file exists
@@ -74,9 +170,14 @@ class ItemWindow(QMainWindow):
     def save_item(self):
         name = self.name_edit.text()
         description = self.description_edit.text()
-        category = self.category_edit.text()
+        category = self.category_combo.currentText()
+        value = self.value_edit.value()
+        markup = self.markup_edit.value()
+        tt_cost = self.tt_cost_edit.value()
+        full_cost = self.full_cost_edit.value()
+        cost_markup = self.cost_markup_edit.value()
 
-        item = Item(name, description, category)
+        item = Item(name, description, category, value, markup, tt_cost, full_cost, cost_markup)
         self.items[name] = item  # Add item to the dictionary
 
         # Save the items dictionary to a file
@@ -84,7 +185,6 @@ class ItemWindow(QMainWindow):
             json.dump({name: item.to_dict() for name, item in self.items.items()}, f)
 
         print("Item saved successfully:", item.__dict__)
-
     @classmethod
     def get_item(cls, name):
         return cls.items.get(name)

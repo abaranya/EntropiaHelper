@@ -2,6 +2,7 @@ from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayo
 from PyQt6.QtCore import Qt
 from material import MaterialWindow
 from blueprint import BlueprintWindow
+from item import ItemWindow
 
 class CraftWindow(QMainWindow):
     def __init__(self, transparency):
@@ -77,11 +78,15 @@ class CraftWindow(QMainWindow):
         materials_button = QPushButton("Materials")
         materials_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_BrowserReload))
         materials_button.clicked.connect(self.open_material_window)  # Connect the button click event to open_material_window method
+
         items_button = QPushButton("Items")
         items_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
+        items_button.clicked.connect(self.open_items_window)  # Connect the button click event to open_items_window method
+
         blueprint_button = QPushButton("Blueprint")
         blueprint_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
         blueprint_button.clicked.connect(self.open_blueprint_window)  # Connect the button click event to open_blueprint_window method
+
         button_layout.addWidget(materials_button)
         button_layout.addWidget(items_button)
         button_layout.addWidget(blueprint_button)
@@ -94,3 +99,6 @@ class CraftWindow(QMainWindow):
     def open_blueprint_window(self):
         self.blueprint_window = BlueprintWindow(self.windowOpacity())  # Pass transparency value to BlueprintWindow
         self.blueprint_window.show()
+    def open_items_window(self):
+        self.item_window = ItemWindow(self.windowOpacity())  # Pass transparency value to ItemsWindow
+        self.item_window.show()
