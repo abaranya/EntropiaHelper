@@ -131,6 +131,7 @@ class ItemWindow(QMainWindow):
         button_layout = QHBoxLayout()
         search_button = QPushButton("Search")
         search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
+        search_button.clicked.connect(self.search_item)
         save_button = QPushButton("Save")
         save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
         save_button.clicked.connect(self.save_item)  # Connect save button to save_item function
@@ -141,12 +142,14 @@ class ItemWindow(QMainWindow):
     def search_item(self):
         search_query = self.name_edit.text().strip()
         if search_query:
-            found_item = self.items.get(search_query)
-            if found_item:
+            found_items = [item for item in self.items.values() if search_query.lower() in item.name.lower()]
+            if found_items:
+                # For simplicity, let's just take the first found item
+                found_item = found_items[0]
                 # Update the fields with the details of the found item
                 self.name_edit.setText(found_item.name)
                 self.description_edit.setText(found_item.description)
-                self.category_edit.setText(found_item.category)
+                self.category_combo.setCurrentText(found_item.category)
                 self.value_edit.setValue(found_item.value)
                 self.markup_edit.setValue(found_item.markup)
                 self.tt_cost_edit.setValue(found_item.tt_cost)
@@ -160,9 +163,21 @@ class ItemWindow(QMainWindow):
             QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
     def load_items(self):
-        if os.path.exists('items.json'):  # Check if the file exists
+        if os.path.exists('items.json'):
             with open('items.json', 'r') as f:
-                self.items = json.load(f)  # Load items from file
+                items_data = json.load(f)
+                for item_data in items_data.values():
+                    item = Item(
+                        name=item_data["name"],
+                        description=item_data["description"],
+                        category=item_data["category"],
+                        value=item_data["value"],
+                        markup=item_data["markup"],
+                        tt_cost=item_data["tt_cost"],
+                        full_cost=item_data["full_cost"],
+                        cost_markup=item_data["cost_markup"]
+                    )
+                    self.items[item.name] = item
             print("Items loaded successfully:", self.items)
         else:
             print("No items file found, starting with an empty item set")
