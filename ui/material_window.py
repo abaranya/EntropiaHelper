@@ -1,24 +1,9 @@
 import json
 import os
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, QDoubleSpinBox, QDateTimeEdit, QMessageBox, QComboBox, QFileDialog
-from PyQt6.QtCore import Qt, QDate
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, QDoubleSpinBox, QDateTimeEdit, QMessageBox, QComboBox
+from PyQt6.QtCore import QDate
 
-class Material:
-    def __init__(self, name, tt_value, markup_value, category, entry_date):
-        self.name = name
-        self.tt_value = tt_value
-        self.markup_value = markup_value
-        self.category = category
-        self.entry_date = entry_date
-
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "tt_value": self.tt_value,
-            "markup_value": self.markup_value,
-            "category": self.category,
-            "entry_date": self.entry_date
-        }
+from entity.material import Material
 
 class MaterialWindow(QMainWindow):
     materials = {}  # Dictionary to store materials
@@ -87,8 +72,8 @@ class MaterialWindow(QMainWindow):
         layout.addLayout(button_layout)
 
     def load_materials(self):
-        if os.path.exists('materials.json'):  # Check if the file exists
-            with open('materials.json', 'r') as f:
+        if os.path.exists('../data/materials.json'):  # Check if the file exists
+            with open('../data/materials.json', 'r') as f:
                 loaded_materials = json.load(f)  # Load materials from file
 
                 # Loop through loaded materials to check for missing category field
@@ -119,7 +104,7 @@ class MaterialWindow(QMainWindow):
                 print("Material already exists, updating...")
 
             # Save the materials dictionary to a file
-            with open('materials.json', 'w') as f:
+            with open('../data/materials.json', 'w') as f:
                 json.dump({name: material.to_dict() for name, material in self.materials.items()}, f)
 
             print("Material saved successfully:", material.__dict__)

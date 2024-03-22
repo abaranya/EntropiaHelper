@@ -1,28 +1,11 @@
 import json
 import os
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, QComboBox, QMessageBox, QSpinBox, QGridLayout, QDoubleSpinBox
-from material import MaterialWindow
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
+    QComboBox, QSpinBox, QDoubleSpinBox
 
-class Blueprint:
-    def __init__(self, name, level, type, class_field, materials, is_limited=False, attempts=None):
-        self.name = name
-        self.level = level
-        self.type = type
-        self.class_field = class_field
-        self.materials = materials
-        self.is_limited = is_limited
-        self.attempts = attempts
+from entity.blueprint import Blueprint
+from ui.blueprint_materials import MaterialWidget
 
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "level": self.level,
-            "type": self.type,
-            "class_field": self.class_field,
-            "materials": self.materials,
-            "is_limited": self.is_limited,
-            "attempts": self.attempts
-        }
 
 class BlueprintWindow(QMainWindow):
     blueprints = {}  # Dictionary to store blueprints
@@ -42,81 +25,98 @@ class BlueprintWindow(QMainWindow):
         layout = QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # Name
+        # First Line: Name, Level, and Type Labels
+        first_line_layout = QHBoxLayout()
         name_label = QLabel("Name:")
-        self.name_edit = QLineEdit()
-        layout.addWidget(name_label)
-        layout.addWidget(self.name_edit)
-
-        # Level
         level_label = QLabel("Level:")
-        self.level_edit = QSpinBox()
-        layout.addWidget(level_label)
-        layout.addWidget(self.level_edit)
-
-        # Type
         type_label = QLabel("Type:")
+        first_line_layout.addWidget(name_label)
+        first_line_layout.addWidget(level_label)
+        first_line_layout.addWidget(type_label)
+        layout.addLayout(first_line_layout)
+
+        # Second Line: Name, Level, and Type Fields
+        second_line_layout = QHBoxLayout()
+        self.name_edit = QLineEdit()
+        self.level_edit = QSpinBox()
         self.type_combo = QComboBox()
         self.type_combo.addItems(["Unlimited", "Limited"])
-        layout.addWidget(type_label)
-        layout.addWidget(self.type_combo)
+        second_line_layout.addWidget(self.name_edit)
+        second_line_layout.addWidget(self.level_edit)
+        second_line_layout.addWidget(self.type_combo)
+        layout.addLayout(second_line_layout)
 
-        # Class field
+        # Third Line: Crafted Item and Class Labels
+        third_line_layout = QHBoxLayout()
+        crafted_item_label = QLabel("Crafted Item:")
         class_label = QLabel("Class:")
+        third_line_layout.addWidget(crafted_item_label)
+        third_line_layout.addWidget(class_label)
+        layout.addLayout(third_line_layout)
+
+        # Fourth Line: Crafted Item and Class Fields
+        fourth_line_layout = QHBoxLayout()
+        self.crafted_item_edit = QLineEdit()
         self.class_combo = QComboBox()
-        self.class_combo.addItems(["Armor Enhancer", "Armor Part", "Armor Plating", "Clothes", "Decoration", "Excavator", "Excavator Enhancer", "Finder", "Finder Amplifier", "Furniture", "Material", "Medical Enhancer", "Medical Tool", "Misc. Tool", "Personal Effect", "Refiner", "Scanner", "Sign", "Storage Container", "Vehicle", "Weapon", "Weapon Attachment", "Weapon Enhancer"])
-        layout.addWidget(class_label)
-        layout.addWidget(self.class_combo)
+        self.class_combo.addItems(
+            ["Armor Enhancer", "Armor Part", "Armor Plating", "Clothes", "Decoration", "Excavator",
+             "Excavator Enhancer", "Finder", "Finder Amplifier", "Furniture", "Material", "Medical Enhancer",
+             "Medical Tool", "Misc. Tool", "Personal Effect", "Refiner", "Scanner", "Sign", "Storage Container",
+             "Vehicle", "Weapon", "Weapon Attachment", "Weapon Enhancer"])
+        self.item_search_button = QPushButton()
+        self.item_search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
+        self.item_search_button.clicked.connect(self.craft_item_search)
+        fourth_line_layout.addWidget(self.crafted_item_edit)
+        fourth_line_layout.addWidget(self.item_search_button)
+        fourth_line_layout.addWidget(self.class_combo)
+        layout.addLayout(fourth_line_layout)
 
-        # Materials
-        materials_label = QLabel("Materials (Quantity):")
-        layout.addWidget(materials_label)
+        self.materials_container = MaterialWidget()
+        layout.addWidget(self.materials_container)
 
-        self.materials_layout = QGridLayout()
-        self.add_material_row()
-        layout.addLayout(self.materials_layout)
 
-        # Add button to dynamically add material rows
-        self.add_material_button = QPushButton("+")
-        self.add_material_button.clicked.connect(self.add_material_row)
-        layout.addWidget(self.add_material_button)
+        # # Fifth Line: Materials Label
+        # materials_label = QLabel("Materials (Quantity):")
+        # layout.addWidget(materials_label)
+        #
+        # # Materials Container
+        # self.materials_container = QWidget()
+        # material_layout = QVBoxLayout()
+        # self.materials_container.setLayout(material_layout)
+        # layout.addWidget(self.materials_container)
+        #
+        # # Sixth Line: Add Material Button
+        # self.add_material_button = QPushButton("Add Material")
+        # self.add_material_button.clicked.connect(self.add_material_row)
+        # layout.addWidget(self.add_material_button)
 
-        # Search button for materials
+        # Seventh Line: Search, and Save Buttons
+        seventh_line_layout = QHBoxLayout()
         self.search_material_button = QPushButton("Search Material")
         self.search_material_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
         self.search_material_button.clicked.connect(self.search_material)
-        layout.addWidget(self.search_material_button)
+        seventh_line_layout.addWidget(self.search_material_button)
 
-        # Limited blueprint options
-        self.limited_options = QWidget()
-        layout.addWidget(self.limited_options)
-        self.limited_options.hide()
-
-        limited_layout = QHBoxLayout()
-        self.limited_options.setLayout(limited_layout)
-
-        attempts_label = QLabel("Attempts:")
-        self.attempts_edit = QSpinBox()
-        limited_layout.addWidget(attempts_label)
-        limited_layout.addWidget(self.attempts_edit)
-
-        # Save button
         save_button = QPushButton("Save")
         save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
         save_button.clicked.connect(self.save_blueprint)  # Connect save button to save_blueprint function
-        layout.addWidget(save_button)
+        seventh_line_layout.addWidget(save_button)
+
+        layout.addLayout(seventh_line_layout)
 
     def add_material_row(self):
-        row = self.materials_layout.rowCount()
-        print(f"starting with row {row}")
+        material_layout = QVBoxLayout()
+        row = QHBoxLayout()
         qty_edit = QDoubleSpinBox()
         qty_edit.setDecimals(2)
-        self.materials_layout.addWidget(qty_edit, row, 0)
+        row.addWidget(qty_edit)
         material_edit = QLineEdit()
-        self.materials_layout.addWidget(material_edit, row, 1)
+        row.addWidget(material_edit)
+        material_layout.addLayout(row)
+        self.materials_container.layout().addLayout(material_layout)
 
     def search_material(self):
-        last_row = self.materials_layout.rowCount() - 1 
+        last_row = self.materials_layout.rowCount() - 1
         if last_row > 0:
             print(f"looking for item at row {last_row}")
             curr_row_widget = self.materials_layout.itemAtPosition(last_row, 1)
@@ -128,6 +128,9 @@ class BlueprintWindow(QMainWindow):
                 print("No widget found in the first row")
         else:
             print("No material rows added yet")
+
+    def craft_item_search(self):
+        print("item search function not yet implemented")
 
     def load_blueprints(self):
         if os.path.exists('blueprints.json'):  # Check if the file exists

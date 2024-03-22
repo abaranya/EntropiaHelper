@@ -1,10 +1,11 @@
 import sys
-from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QHBoxLayout, QVBoxLayout, QWidget, QSpacerItem, QSizePolicy, QCheckBox, QLineEdit, QStyle
+from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QHBoxLayout, QWidget, QSpacerItem, QSizePolicy, \
+    QStyle
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 import qdarktheme
-from config import ConfigWindow
-from craft import CraftWindow
+from ui.config import ConfigWindow
+from ui.craft import CraftWindow
 
 class EntropiaHelperApp(QMainWindow):
     def __init__(self):

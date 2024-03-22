@@ -1,31 +1,9 @@
 import json
 import os
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, QDoubleSpinBox, QComboBox,QMessageBox
-from PyQt6.QtCore import Qt
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
+    QComboBox,QMessageBox
 
-class Item:
-    def __init__(self, name, description, category, value, markup, tt_cost, full_cost, cost_markup):
-        self.name = name
-        self.description = description
-        self.category = category
-        self.value = value
-        self.markup = markup
-        self.tt_cost = tt_cost
-        self.full_cost = full_cost
-        self.cost_markup = cost_markup
-
-    def to_dict(self):
-        return {
-            "name": self.name,
-            "description": self.description,
-            "category": self.category,
-            "value": self.value,
-            "markup": self.markup,
-            "tt_cost": self.tt_cost,
-            "full_cost": self.full_cost,
-            "cost_markup": self.cost_markup
-        }
-
+from entity.item import Item
 from PyQt6.QtWidgets import QDoubleSpinBox
 
 class ItemWindow(QMainWindow):
@@ -163,8 +141,8 @@ class ItemWindow(QMainWindow):
             QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
     def load_items(self):
-        if os.path.exists('items.json'):
-            with open('items.json', 'r') as f:
+        if os.path.exists('../data/items.json'):
+            with open('../data/items.json', 'r') as f:
                 items_data = json.load(f)
                 for item_data in items_data.values():
                     item = Item(
@@ -196,7 +174,7 @@ class ItemWindow(QMainWindow):
         self.items[name] = item  # Add item to the dictionary
 
         # Save the items dictionary to a file
-        with open('items.json', 'w') as f:
+        with open('../data/items.json', 'w') as f:
             json.dump({name: item.to_dict() for name, item in self.items.items()}, f)
 
         print("Item saved successfully:", item.__dict__)

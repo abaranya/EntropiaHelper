@@ -1,8 +1,8 @@
 from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout, QPushButton, QStyle
 from PyQt6.QtCore import Qt
-from material import MaterialWindow
-from blueprint import BlueprintWindow
-from item import ItemWindow
+from ui.material_window import MaterialWindow
+from ui.blueprint_window import BlueprintWindow
+from ui.item_window import ItemWindow
 
 class CraftWindow(QMainWindow):
     def __init__(self, transparency):
