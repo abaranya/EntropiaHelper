@@ -1,10 +1,14 @@
-import yaml
+import yaml, os
 from PyQt6.QtWidgets import QMainWindow, QWidget, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QCheckBox
 from PyQt6.QtCore import Qt
 
 class ConfigWindow(QMainWindow):
     def __init__(self):
         super().__init__()
+
+        script_dir = os.path.dirname(__file__)
+        self.config_path = os.path.join(script_dir, '..', 'config.yaml')
+
         self.setWindowTitle("Configuration")
         self.setStyleSheet("background-color: #202020; color: white;")
         self.create_widgets()
@@ -59,7 +63,7 @@ class ConfigWindow(QMainWindow):
 
     def load_config(self):
         try:
-            with open("../config.yaml", "r") as file:
+            with open(self.config_path, "r") as file:
                 config = yaml.safe_load(file)
                 if config is None:
                     config = {}
@@ -87,5 +91,5 @@ class ConfigWindow(QMainWindow):
             'start_time': self.start_time_entry.text(),
             'transparency': float(self.transparency_entry.text())
         }
-        with open("../config.yaml", "w") as file:
+        with open(self.config_path, "w") as file:
             yaml.dump(config, file)

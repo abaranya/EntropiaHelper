@@ -1,10 +1,11 @@
 import json
 import os
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
-    QComboBox,QMessageBox
+    QComboBox, QMessageBox
 
 from entity.item import Item
 from PyQt6.QtWidgets import QDoubleSpinBox
+
 
 class ItemWindow(QMainWindow):
     items = {}  # Dictionary to store items
@@ -17,6 +18,10 @@ class ItemWindow(QMainWindow):
         super().__init__()
         self.setWindowTitle("Item Window")
         self.items = {}  # Initialize an empty dictionary to store items
+
+        script_dir = os.path.dirname(__file__)
+
+        self.items_path = os.path.join(script_dir, '..', 'data', 'items.json')
         self.load_items()  # Load items from file when the window is created
 
         # Set window opacity based on the transparency value passed from the main application
@@ -141,8 +146,8 @@ class ItemWindow(QMainWindow):
             QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
     def load_items(self):
-        if os.path.exists('../data/items.json'):
-            with open('../data/items.json', 'r') as f:
+        if os.path.exists(self.items_path):
+            with open(self.items_path, 'r') as f:
                 items_data = json.load(f)
                 for item_data in items_data.values():
                     item = Item(
@@ -174,10 +179,11 @@ class ItemWindow(QMainWindow):
         self.items[name] = item  # Add item to the dictionary
 
         # Save the items dictionary to a file
-        with open('../data/items.json', 'w') as f:
+        with open(self.items_path, 'w') as f:
             json.dump({name: item.to_dict() for name, item in self.items.items()}, f)
 
         print("Item saved successfully:", item.__dict__)
+
     @classmethod
     def get_item(cls, name):
         return cls.items.get(name)
