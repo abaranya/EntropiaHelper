@@ -1,5 +1,5 @@
 from PyQt6.QtGui import QIcon
-from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QDoubleSpinBox, QLineEdit, QStyle
+from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QDoubleSpinBox, QLineEdit, QStyle, QComboBox, QMessageBox, QDialog
 
 
 class MaterialWidget(QWidget):
@@ -51,5 +51,41 @@ class MaterialWidget(QWidget):
         material_layout.addLayout(row_layout)
 
     def search_material(self, row):
-        print(f"Searching material for row in {row}")
-        pass  # You can implement this method based on your requirements
+        matching_materials = [material for material in self.materials_dict if self.material_rows[row].lower() in material.lower()]
+
+        if matching_materials:
+            # If multiple materials are found, prompt the user to choose from a list
+            if len(matching_materials) > 1:
+                self.show_material_selection_dialog(row, matching_materials)
+            else:
+                # If only one material is found, set it directly in the QLineEdit
+                self.material_rows[row].material_edit.setText(matching_materials[0])
+        else:
+            QMessageBox.information(self, "No Matches", "No matching materials found.")
+
+    def show_material_selection_dialog(self, row, matching_materials):
+        dialog = MaterialSelectionDialog(matching_materials)
+        if dialog.exec():
+            selected_material = dialog.selected_material()
+            self.material_rows[row].material_edit.setText(selected_material)
+
+    class MaterialSelectionDialog(QDialog):
+        def __init__(self, materials):
+            super().__init__()
+            self.materials = materials
+
+            self.setWindowTitle("Select Material")
+            layout = QVBoxLayout()
+
+            self.material_combo = QComboBox()
+            self.material_combo.addItems(materials)
+            layout.addWidget(self.material_combo)
+
+            self.select_button = QPushButton("Select")
+            self.select_button.clicked.connect(self.accept)
+            layout.addWidget(self.select_button)
+
+            self.setLayout(layout)
+
+        def selected_material(self):
+            return self.material_combo.currentText()

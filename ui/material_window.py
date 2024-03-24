@@ -1,24 +1,19 @@
-import json
 import os
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
-    QDoubleSpinBox, QDateTimeEdit, QMessageBox, QComboBox
-from PyQt6.QtCore import QDate
-
+    QDoubleSpinBox, QDateTimeEdit, QMessageBox, QComboBox, QDialog, QListView, QDialogButtonBox
+from PyQt6.QtCore import QDate, QStringListModel
 from entity.material import Material
+from manager.material_manager import MaterialManager
 
 
 class MaterialWindow(QMainWindow):
-    materials = {}  # Dictionary to store materials
+    material_manager = MaterialManager()  # Instantiate MaterialManager
 
     def __init__(self, transparency):
         super().__init__()
 
-        script_dir = os.path.dirname(__file__)
-        self.materials_path = os.path.join(script_dir, '..', 'data', 'materials.json')
-
         self.setWindowTitle("Material Window")
-        self.materials = {}  # Initialize an empty dictionary to store materials
-        self.load_materials()  # Load materials from file when the window is created
+        self.load_materials()  # Load materials from MaterialManager
 
         # Set window opacity based on the transparency value passed from the main application
         self.setWindowOpacity(transparency)
@@ -78,22 +73,8 @@ class MaterialWindow(QMainWindow):
         layout.addLayout(button_layout)
 
     def load_materials(self):
-        if os.path.exists(self.materials_path):  # Check if the file exists
-            with open(self.materials_path, 'r') as f:
-                loaded_materials = json.load(f)  # Load materials from file
-
-                # Loop through loaded materials to check for missing category field
-                for name, material_data in loaded_materials.items():
-                    if 'category' not in material_data:
-                        # If category field is missing, default it to "Ores"
-                        material_data['category'] = "Ores"
-
-                self.materials = {name: Material(**material_data) for name, material_data in loaded_materials.items()}
-
-            print("Materials loaded successfully:", self.materials)
-        else:
-            print("No materials file found, starting with an empty material set")
-
+        # Call MaterialManager to load materials
+        self.material_manager.load_materials()
 
     def save_material(self):
         if self.validate():
@@ -101,52 +82,57 @@ class MaterialWindow(QMainWindow):
             tt_value = self.tt_edit.value()
             markup_value = self.markup_spinbox.value()
             category = self.category_combo.currentText()
-            entry_date = self.entry_edit.text() if self.entry_edit.text() else QDate.currentDate().toString("yyyy-MM-dd")
+            entry_date = self.entry_edit.text() if self.entry_edit.text() else QDate.currentDate().toString(
+                "yyyy-MM-dd")
 
+            # Create a Material object
             material = Material(name, tt_value, markup_value, category, entry_date)
-            self.materials[name] = material  # Add material to the dictionary
 
-            # Check if the material already exists in the dictionary
-            if name in self.materials:
-                print("Material already exists, updating...")
-
-            # Save the materials dictionary to a file
-            with open(self.materials_path, 'w') as f:
-                json.dump({name: material.to_dict() for name, material in self.materials.items()}, f)
+            # Call MaterialManager to add or update material
+            self.material_manager.add_material(material)
 
             print("Material saved successfully:", material.__dict__)
         else:
             QMessageBox.warning(self, "Validation Error", "Please fill in all fields correctly.")
 
+    # def search_material(self):
+    #     search_text = self.name_edit.text()  # Get the search text from the search box
+    #
+    #     # Call MaterialManager to search for material
+    #     material_found = self.material_manager.get_material(search_text)
+    #
+    #     if material_found:
+    #         # If a material is found, populate the fields in the material window with its data
+    #         self.name_edit.setText(material_found.name)
+    #         self.tt_edit.setValue(material_found.tt_value)
+    #         self.markup_spinbox.setValue(material_found.markup_value)
+    #         entry_date = QDate.fromString(material_found.entry_date, "yyyy-MM-dd")
+    #         self.entry_edit.setDate(entry_date)
+    #         self.category_combo.setCurrentText(material_found.category)
+    #         print("Material found:", material_found.__dict__)
+    #     else:
+    #         # If no material is found, show a message box
+    #         QMessageBox.warning(self, "Material Not Found", "No material found matching the search criteria.")
 
     def search_material(self):
         search_text = self.name_edit.text()  # Get the search text from the search box
-        material_found = None
+        matching_names = self.material_manager.search_materials(search_text)
 
-        # Loop through the loaded materials to find a material that contains the search text
-        for name, material in self.materials.items():
-            if search_text.lower() in name.lower():
-                material_found = material
-                break
-
-        if material_found:
-            # If a material is found, populate the fields in the material window with its data
-            self.name_edit.setText(material_found.name)
-            self.tt_edit.setValue(material_found.tt_value)
-            self.markup_spinbox.setValue(material_found.markup_value)
-            entry_date = QDate.fromString(material_found.entry_date, "yyyy-MM-dd")
-            self.entry_edit.setDate(entry_date)
-            self.category_combo.setCurrentText(material_found.category)
-            print("Material found:", material_found.__dict__)
+        if matching_names:
+            if len(matching_names) == 1:
+                material = self.material_manager.get_material(matching_names[0])
+                self.populate_material_fields(material)
+            else:
+                self.show_selection_dialog(matching_names)
         else:
-            # If no material is found, show a message box
             QMessageBox.warning(self, "Material Not Found", "No material found matching the search criteria.")
 
-
-    @classmethod
-    def get_material(cls, name):
-        return cls.materials.get(name)
-
+    def populate_material_fields(self, material):
+        self.name_edit.setText(material.name)
+        self.tt_edit.setValue(material.tt_value)
+        self.markup_spinbox.setValue(material.markup_value)
+        self.entry_edit.setDate(QDate.fromString(material.entry_date, "yyyy-MM-dd"))
+        self.category_combo.setCurrentText(material.category)
 
     def validate(self):
         name = self.name_edit.text()
@@ -162,3 +148,29 @@ class MaterialWindow(QMainWindow):
             return False
 
         return True
+
+    def show_selection_dialog(self, matching_names):
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Select Material")
+        dialog_layout = QVBoxLayout()
+
+        list_view = QListView()
+        model = QStringListModel()
+        model.setStringList(matching_names)
+        list_view.setModel(model)
+
+        dialog_layout.addWidget(list_view)
+
+        button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+        button_box.accepted.connect(dialog.accept)
+        button_box.rejected.connect(dialog.reject)
+
+        dialog_layout.addWidget(button_box)
+
+        dialog.setLayout(dialog_layout)
+
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            selected_index = list_view.currentIndex()
+            selected_name = model.data(selected_index)
+            material = self.material_manager.get_material(selected_name)
+            self.populate_material_fields(material)

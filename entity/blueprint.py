@@ -1,3 +1,6 @@
+from entity.material import Material
+
+
 class Blueprint:
     def __init__(self, name, level, type, class_field, materials, is_limited=False, attempts=None):
         self.name = name
@@ -14,7 +17,7 @@ class Blueprint:
             "level": self.level,
             "type": self.type,
             "class_field": self.class_field,
-            "materials": self.materials,
+            "materials": [material.to_dict() for material in self.materials],  # Serialize each material to a dictionary
             "is_limited": self.is_limited,
             "attempts": self.attempts
         }

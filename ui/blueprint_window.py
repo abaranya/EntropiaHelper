@@ -12,6 +12,10 @@ class BlueprintWindow(QMainWindow):
 
     def __init__(self, transparency):
         super().__init__()
+
+        script_dir = os.path.dirname(__file__)
+        self.blueprints_path = os.path.join(script_dir, '..', 'data', 'blueprints.json')
+
         self.setWindowTitle("Blueprint Window")
         self.blueprints = {}  # Initialize an empty dictionary to store blueprints
         self.load_blueprints()  # Load blueprints from file when the window is created
@@ -25,77 +29,23 @@ class BlueprintWindow(QMainWindow):
         layout = QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # First Line: Name, Level, and Type Labels
-        first_line_layout = QHBoxLayout()
-        name_label = QLabel("Name:")
-        level_label = QLabel("Level:")
-        type_label = QLabel("Type:")
-        first_line_layout.addWidget(name_label)
-        first_line_layout.addWidget(level_label)
-        first_line_layout.addWidget(type_label)
-        layout.addLayout(first_line_layout)
+        # First Panel: Name, Level, and Type Labels
+        first_panel = FirstPanel()
+        self.name_edit = first_panel.name_edit
+        layout.addWidget(first_panel)
 
-        # Second Line: Name, Level, and Type Fields
-        second_line_layout = QHBoxLayout()
-        self.name_edit = QLineEdit()
-        self.level_edit = QSpinBox()
-        self.type_combo = QComboBox()
-        self.type_combo.addItems(["Unlimited", "Limited"])
-        second_line_layout.addWidget(self.name_edit)
-        second_line_layout.addWidget(self.level_edit)
-        second_line_layout.addWidget(self.type_combo)
-        layout.addLayout(second_line_layout)
-
-        # Third Line: Crafted Item and Class Labels
-        third_line_layout = QHBoxLayout()
-        crafted_item_label = QLabel("Crafted Item:")
-        class_label = QLabel("Class:")
-        third_line_layout.addWidget(crafted_item_label)
-        third_line_layout.addWidget(class_label)
-        layout.addLayout(third_line_layout)
-
-        # Fourth Line: Crafted Item and Class Fields
-        fourth_line_layout = QHBoxLayout()
-        self.crafted_item_edit = QLineEdit()
-        self.class_combo = QComboBox()
-        self.class_combo.addItems(
-            ["Armor Enhancer", "Armor Part", "Armor Plating", "Clothes", "Decoration", "Excavator",
-             "Excavator Enhancer", "Finder", "Finder Amplifier", "Furniture", "Material", "Medical Enhancer",
-             "Medical Tool", "Misc. Tool", "Personal Effect", "Refiner", "Scanner", "Sign", "Storage Container",
-             "Vehicle", "Weapon", "Weapon Attachment", "Weapon Enhancer"])
-        self.item_search_button = QPushButton()
-        self.item_search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
-        self.item_search_button.clicked.connect(self.craft_item_search)
-        fourth_line_layout.addWidget(self.crafted_item_edit)
-        fourth_line_layout.addWidget(self.item_search_button)
-        fourth_line_layout.addWidget(self.class_combo)
-        layout.addLayout(fourth_line_layout)
+        layout.addWidget(SecondPanel())
 
         self.materials_container = MaterialWidget()
         layout.addWidget(self.materials_container)
 
 
-        # # Fifth Line: Materials Label
-        # materials_label = QLabel("Materials (Quantity):")
-        # layout.addWidget(materials_label)
-        #
-        # # Materials Container
-        # self.materials_container = QWidget()
-        # material_layout = QVBoxLayout()
-        # self.materials_container.setLayout(material_layout)
-        # layout.addWidget(self.materials_container)
-        #
-        # # Sixth Line: Add Material Button
-        # self.add_material_button = QPushButton("Add Material")
-        # self.add_material_button.clicked.connect(self.add_material_row)
-        # layout.addWidget(self.add_material_button)
-
         # Seventh Line: Search, and Save Buttons
         seventh_line_layout = QHBoxLayout()
-        self.search_material_button = QPushButton("Search Material")
-        self.search_material_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
-        self.search_material_button.clicked.connect(self.search_material)
-        seventh_line_layout.addWidget(self.search_material_button)
+        self.blueprint_search_button = QPushButton("Search Material")
+        self.blueprint_search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
+        self.blueprint_search_button.clicked.connect(self.search_blueprint)
+        seventh_line_layout.addWidget(self.blueprint_search_button)
 
         save_button = QPushButton("Save")
         save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
@@ -115,26 +65,41 @@ class BlueprintWindow(QMainWindow):
         material_layout.addLayout(row)
         self.materials_container.layout().addLayout(material_layout)
 
-    def search_material(self):
-        last_row = self.materials_layout.rowCount() - 1
-        if last_row > 0:
-            print(f"looking for item at row {last_row}")
-            curr_row_widget = self.materials_layout.itemAtPosition(last_row, 1)
-            if curr_row_widget is not None:
-                search_text = curr_row_widget.widget().text()  # Get text from the first material row
-                # Implement your search logic here
-                print("Searching material:", search_text)
+    def search_blueprint(self):
+        if not self.blueprints:  # Check if blueprints dictionary is empty
+            self.load_blueprints()  # Load blueprints if not already loaded
+
+        name_substring = self.name_edit.text().strip()  # Get the name substring to search for
+
+        if name_substring:
+            found_blueprints = {name: blueprint for name, blueprint in self.blueprints.items() if
+                                name_substring in name}
+            if found_blueprints:
+                # Assuming you want to handle only the first matching blueprint, you can take the first item
+                name, blueprint = next(iter(found_blueprints.items()))
+
+                # Update window fields with the found blueprint
+                self.name_edit.setText(blueprint.name)
+                self.level_edit.setValue(blueprint.level)
+                index = self.type_combo.findText(blueprint.type)
+                if index != -1:
+                    self.type_combo.setCurrentIndex(index)
+                index = self.class_combo.findText(blueprint.class_field)
+                if index != -1:
+                    self.class_combo.setCurrentIndex(index)
+
+                # You may also need to populate materials and other fields based on your application logic
             else:
-                print("No widget found in the first row")
+                print("No blueprint found matching the name substring.")
         else:
-            print("No material rows added yet")
+            print("Please enter a name substring to search.")
 
     def craft_item_search(self):
         print("item search function not yet implemented")
 
     def load_blueprints(self):
-        if os.path.exists('blueprints.json'):  # Check if the file exists
-            with open('blueprints.json', 'r') as f:
+        if os.path.exists(self.blueprints_path):  # Check if the file exists
+            with open(self.blueprints_path, 'r') as f:
                 self.blueprints = json.load(f)  # Load blueprints from file
             print("Blueprints loaded successfully:", self.blueprints)
         else:
@@ -171,3 +136,81 @@ class BlueprintWindow(QMainWindow):
     def validate(self):
         # Add validation logic if needed
         return True
+
+
+class FirstPanel(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.init_ui()
+
+    def init_ui(self):
+        layout = QHBoxLayout()
+
+        name_layout = QVBoxLayout()
+        name_label = QLabel("Name:")
+        self.name_edit = QLineEdit()
+        name_layout.addWidget(name_label)
+        name_layout.addWidget(self.name_edit)
+
+        level_layout = QVBoxLayout()
+        level_label = QLabel("Level:")
+        self.level_edit = QSpinBox()
+        level_layout.addWidget(level_label)
+        level_layout.addWidget(self.level_edit)
+
+        type_layout = QVBoxLayout()
+        type_label = QLabel("Type:")
+        self.type_combo = QComboBox()
+        self.type_combo.addItems(["Unlimited", "Limited"])
+        type_layout.addWidget(type_label)
+        type_layout.addWidget(self.type_combo)
+
+        layout.addLayout(name_layout)
+        layout.addLayout(level_layout)
+        layout.addLayout(type_layout)
+
+        self.setLayout(layout)
+
+
+class SecondPanel(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.init_ui()
+
+    def init_ui(self):
+        layout = QHBoxLayout()
+
+        name_layout = QVBoxLayout()
+        crafted_item_label = QLabel("Crafted Item:")
+        self.crafted_item_edit = QLineEdit()
+        name_layout.addWidget(crafted_item_label)
+        name_layout.addWidget(self.crafted_item_edit)
+
+        search_layout = QVBoxLayout()
+        self.item_search_button = QPushButton()
+        self.item_search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
+        # self.item_search_button.clicked.connect(self.craft_item_search)
+        search_layout.addWidget(QLabel())
+        search_layout.addWidget(self.item_search_button)
+
+        class_layout = QVBoxLayout()
+        class_label = QLabel("Class:")
+        self.class_combo = QComboBox()
+        self.class_combo.addItems(
+            ["Armor Enhancer", "Armor Part", "Armor Plating", "Clothes", "Decoration", "Excavator",
+             "Excavator Enhancer", "Finder", "Finder Amplifier", "Furniture", "Material", "Medical Enhancer",
+             "Medical Tool", "Misc. Tool", "Personal Effect", "Refiner", "Scanner", "Sign", "Storage Container",
+             "Vehicle", "Weapon", "Weapon Attachment", "Weapon Enhancer"])
+
+        class_layout.addWidget(class_label)
+        class_layout.addWidget(self.class_combo)
+
+
+        layout.addLayout(name_layout)
+        layout.addLayout(search_layout)
+        layout.addLayout(class_layout)
+
+        self.setLayout(layout)
+
