@@ -1,28 +1,20 @@
 import json
 import os
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
-    QComboBox, QMessageBox
+    QComboBox, QMessageBox, QDoubleSpinBox
+from PyQt6.QtCore import QDate, QStringListModel
 
 from entity.item import Item
-from PyQt6.QtWidgets import QDoubleSpinBox
-
+from manager.item_manager import ItemManager
+from PyQt6.QtWidgets import QDialog, QListView, QDialogButtonBox
 
 class ItemWindow(QMainWindow):
-    items = {}  # Dictionary to store items
-    categories = ["Armor Enhancer", "Armor Part", "Armor Plating", "Clothes", "Decoration", "Excavator",
-                  "Excavator Enhancer", "Finder", "Finder Amplifier", "Furniture", "Material", "Medical Enhancer",
-                  "Medical Tool", "Misc. Tool", "Personal Effect", "Refiner", "Scanner", "Sign",
-                  "Storage Container", "Vehicle", "Weapon", "Weapon Attachment", "Weapon Enhancer"]
-
     def __init__(self, transparency):
         super().__init__()
+
         self.setWindowTitle("Item Window")
-        self.items = {}  # Initialize an empty dictionary to store items
-
-        script_dir = os.path.dirname(__file__)
-
-        self.items_path = os.path.join(script_dir, '..', 'data', 'items.json')
-        self.load_items()  # Load items from file when the window is created
+        self.item_manager = ItemManager()
+        self.load_items()
 
         # Set window opacity based on the transparency value passed from the main application
         self.setWindowOpacity(transparency)
@@ -45,7 +37,7 @@ class ItemWindow(QMainWindow):
         second_line_layout = QHBoxLayout()
         self.name_edit = QLineEdit()
         self.category_combo = QComboBox()
-        self.category_combo.addItems(self.categories)
+        self.category_combo.addItems(self.item_manager.categories)
         second_line_layout.addWidget(self.name_edit)
         second_line_layout.addWidget(self.category_combo)
         layout.addLayout(second_line_layout)
@@ -117,7 +109,7 @@ class ItemWindow(QMainWindow):
         search_button.clicked.connect(self.search_item)
         save_button = QPushButton("Save")
         save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
-        save_button.clicked.connect(self.save_item)  # Connect save button to save_item function
+        save_button.clicked.connect(self.save_item)
         button_layout.addWidget(search_button)
         button_layout.addWidget(save_button)
         layout.addLayout(button_layout)
@@ -125,45 +117,63 @@ class ItemWindow(QMainWindow):
     def search_item(self):
         search_query = self.name_edit.text().strip()
         if search_query:
-            found_items = [item for item in self.items.values() if search_query.lower() in item.name.lower()]
+            found_items = self.item_manager.item_search(search_query)
             if found_items:
-                # For simplicity, let's just take the first found item
-                found_item = found_items[0]
-                # Update the fields with the details of the found item
-                self.name_edit.setText(found_item.name)
-                self.description_edit.setText(found_item.description)
-                self.category_combo.setCurrentText(found_item.category)
-                self.value_edit.setValue(found_item.value)
-                self.markup_edit.setValue(found_item.markup)
-                self.tt_cost_edit.setValue(found_item.tt_cost)
-                self.full_cost_edit.setValue(found_item.full_cost)
-                self.cost_markup_edit.setValue(found_item.cost_markup)
-
-                QMessageBox.information(self, "Search Result", "Item found and details updated.")
+                if len(found_items) == 1:
+                    # If only one item is found, update fields with its details
+                    found_item = found_items[0]
+                    self.populate_item_fields(found_item)
+                    # Update other fields...
+                    QMessageBox.information(self, "Search Result", "Item found and details updated.")
+                else:
+                    # If multiple items are found, show a selection dialog
+                    self.show_selection_dialog([item.name for item in found_items])
             else:
                 QMessageBox.information(self, "Search Result", "No item found matching the search query.")
         else:
             QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
+    def show_selection_dialog(self, matching_names):
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Select Item")
+        dialog_layout = QVBoxLayout()
+
+        list_view = QListView()
+        model = QStringListModel()
+        model.setStringList(matching_names)
+        list_view.setModel(model)
+
+        dialog_layout.addWidget(list_view)
+
+        button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+        button_box.accepted.connect(dialog.accept)
+        button_box.rejected.connect(dialog.reject)
+
+        dialog_layout.addWidget(button_box)
+
+        dialog.setLayout(dialog_layout)
+
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            selected_index = list_view.currentIndex()
+            selected_name = model.data(selected_index)
+            item = self.item_manager.get_item(selected_name)
+            if item:
+                self.populate_item_fields(item)
+            else:
+                QMessageBox.warning(self, "Item Not Found", "The selected item could not be found.")
+
+    def populate_item_fields(self, item):
+        self.name_edit.setText(item.name)
+        self.description_edit.setText(item.description)
+        self.category_combo.setCurrentText(item.category)
+        self.value_edit.setValue(item.value)
+        self.markup_edit.setValue(item.markup)
+        self.tt_cost_edit.setValue(item.tt_cost)
+        self.full_cost_edit.setValue(item.full_cost)
+        self.cost_markup_edit.setValue(item.cost_markup)
+
     def load_items(self):
-        if os.path.exists(self.items_path):
-            with open(self.items_path, 'r') as f:
-                items_data = json.load(f)
-                for item_data in items_data.values():
-                    item = Item(
-                        name=item_data["name"],
-                        description=item_data["description"],
-                        category=item_data["category"],
-                        value=item_data["value"],
-                        markup=item_data["markup"],
-                        tt_cost=item_data["tt_cost"],
-                        full_cost=item_data["full_cost"],
-                        cost_markup=item_data["cost_markup"]
-                    )
-                    self.items[item.name] = item
-            print("Items loaded successfully:", self.items)
-        else:
-            print("No items file found, starting with an empty item set")
+        self.item_manager.load_items()
 
     def save_item(self):
         name = self.name_edit.text()
@@ -176,22 +186,11 @@ class ItemWindow(QMainWindow):
         cost_markup = self.cost_markup_edit.value()
 
         item = Item(name, description, category, value, markup, tt_cost, full_cost, cost_markup)
-        self.items[name] = item  # Add item to the dictionary
-
-        # Save the items dictionary to a file
-        with open(self.items_path, 'w') as f:
-            json.dump({name: item.to_dict() for name, item in self.items.items()}, f)
+        self.item_manager.add_item(item)
 
         print("Item saved successfully:", item.__dict__)
-
-    @classmethod
-    def get_item(cls, name):
-        return cls.items.get(name)
 
     def validate(self):
         # Add validation logic if needed
         return True
 
-# Example usage:
-# item_window = ItemWindow(transparency_value)
-# item_window.show()

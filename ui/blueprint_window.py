@@ -8,7 +8,6 @@ from ui.blueprint_materials import MaterialWidget
 
 
 class BlueprintWindow(QMainWindow):
-    blueprints = {}  # Dictionary to store blueprints
 
     def __init__(self, transparency):
         super().__init__()
@@ -38,7 +37,6 @@ class BlueprintWindow(QMainWindow):
 
         self.materials_container = MaterialWidget()
         layout.addWidget(self.materials_container)
-
 
         # Seventh Line: Search, and Save Buttons
         seventh_line_layout = QHBoxLayout()

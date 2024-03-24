@@ -52,7 +52,12 @@ class MaterialManager:
             self.materials[material.name] = material
             print(f"Material '{material.name}' added successfully.")
         else:
-            print(f"Material '{material.name}' already exists in the material manager.")
+            existing_material = self.materials[material.name]
+            existing_material.tt_value = material.tt_value
+            existing_material.markup_value = material.markup_value
+            existing_material.category = material.category
+            existing_material.entry_date = material.entry_date
+            print(f"Material '{material.name}' updated successfully.")
 
     def get_material(self, name):
         return self.materials.get(name)

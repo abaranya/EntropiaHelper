@@ -90,29 +90,11 @@ class MaterialWindow(QMainWindow):
 
             # Call MaterialManager to add or update material
             self.material_manager.add_material(material)
+            self.material_manager.save_materials()
 
             print("Material saved successfully:", material.__dict__)
         else:
             QMessageBox.warning(self, "Validation Error", "Please fill in all fields correctly.")
-
-    # def search_material(self):
-    #     search_text = self.name_edit.text()  # Get the search text from the search box
-    #
-    #     # Call MaterialManager to search for material
-    #     material_found = self.material_manager.get_material(search_text)
-    #
-    #     if material_found:
-    #         # If a material is found, populate the fields in the material window with its data
-    #         self.name_edit.setText(material_found.name)
-    #         self.tt_edit.setValue(material_found.tt_value)
-    #         self.markup_spinbox.setValue(material_found.markup_value)
-    #         entry_date = QDate.fromString(material_found.entry_date, "yyyy-MM-dd")
-    #         self.entry_edit.setDate(entry_date)
-    #         self.category_combo.setCurrentText(material_found.category)
-    #         print("Material found:", material_found.__dict__)
-    #     else:
-    #         # If no material is found, show a message box
-    #         QMessageBox.warning(self, "Material Not Found", "No material found matching the search criteria.")
 
     def search_material(self):
         search_text = self.name_edit.text()  # Get the search text from the search box
