@@ -1,23 +1,23 @@
-import json
 import os
-from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
-    QComboBox, QSpinBox, QDoubleSpinBox
 
+from PyQt6.QtCore import QStringListModel
+from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, \
+    QSpinBox, QDoubleSpinBox, QMessageBox, QStyle
 from entity.blueprint import Blueprint
+from manager.item_manager import ItemManager
 from ui.blueprint_materials import MaterialWidget
+from manager.blueprint_manager import BlueprintManager
 
 
 class BlueprintWindow(QMainWindow):
-
     def __init__(self, transparency):
         super().__init__()
 
         script_dir = os.path.dirname(__file__)
-        self.blueprints_path = os.path.join(script_dir, '..', 'data', 'blueprints.json')
+        self.blueprint_manager = BlueprintManager(os.path.join(script_dir, '..', 'data', 'blueprints.json'))
 
         self.setWindowTitle("Blueprint Window")
-        self.blueprints = {}  # Initialize an empty dictionary to store blueprints
-        self.load_blueprints()  # Load blueprints from file when the window is created
+        self.load_blueprints()
 
         # Set window opacity based on the transparency value passed from the main application
         self.setWindowOpacity(transparency)
@@ -28,9 +28,10 @@ class BlueprintWindow(QMainWindow):
         layout = QVBoxLayout()
         central_widget.setLayout(layout)
 
-        # First Panel: Name, Level, and Type Labels
         first_panel = FirstPanel()
         self.name_edit = first_panel.name_edit
+        self.level_edit = first_panel.level_edit
+        self.type_combo = first_panel.type_combo
         layout.addWidget(first_panel)
 
         layout.addWidget(SecondPanel())
@@ -41,98 +42,55 @@ class BlueprintWindow(QMainWindow):
         # Seventh Line: Search, and Save Buttons
         seventh_line_layout = QHBoxLayout()
         self.blueprint_search_button = QPushButton("Search Material")
-        self.blueprint_search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
         self.blueprint_search_button.clicked.connect(self.search_blueprint)
         seventh_line_layout.addWidget(self.blueprint_search_button)
 
         save_button = QPushButton("Save")
-        save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
-        save_button.clicked.connect(self.save_blueprint)  # Connect save button to save_blueprint function
+        save_button.clicked.connect(self.save_blueprint)
         seventh_line_layout.addWidget(save_button)
 
         layout.addLayout(seventh_line_layout)
 
     def add_material_row(self):
-        material_layout = QVBoxLayout()
-        row = QHBoxLayout()
-        qty_edit = QDoubleSpinBox()
-        qty_edit.setDecimals(2)
-        row.addWidget(qty_edit)
-        material_edit = QLineEdit()
-        row.addWidget(material_edit)
-        material_layout.addLayout(row)
-        self.materials_container.layout().addLayout(material_layout)
+        self.materials_container.add_material_row()
 
     def search_blueprint(self):
-        if not self.blueprints:  # Check if blueprints dictionary is empty
-            self.load_blueprints()  # Load blueprints if not already loaded
-
-        name_substring = self.name_edit.text().strip()  # Get the name substring to search for
-
+        name_substring = self.name_edit.text().strip()
         if name_substring:
-            found_blueprints = {name: blueprint for name, blueprint in self.blueprints.items() if
-                                name_substring in name}
-            if found_blueprints:
-                # Assuming you want to handle only the first matching blueprint, you can take the first item
-                name, blueprint = next(iter(found_blueprints.items()))
-
-                # Update window fields with the found blueprint
-                self.name_edit.setText(blueprint.name)
-                self.level_edit.setValue(blueprint.level)
-                index = self.type_combo.findText(blueprint.type)
-                if index != -1:
-                    self.type_combo.setCurrentIndex(index)
-                index = self.class_combo.findText(blueprint.class_field)
-                if index != -1:
-                    self.class_combo.setCurrentIndex(index)
-
-                # You may also need to populate materials and other fields based on your application logic
+            found_blueprint = self.blueprint_manager.search_blueprint(name_substring)
+            if found_blueprint:
+                self.populate_blueprint_fields(found_blueprint)
             else:
-                print("No blueprint found matching the name substring.")
+                QMessageBox.information(self, "Search Result", "No blueprint found matching the name substring.")
         else:
-            print("Please enter a name substring to search.")
+            QMessageBox.warning(self, "Search Error", "Please enter a name substring to search.")
 
-    def craft_item_search(self):
-        print("item search function not yet implemented")
+    def populate_blueprint_fields(self, blueprint):
+        self.name_edit.setText(blueprint.name)
+        self.level_edit.setValue(blueprint.level)
+        index = self.type_combo.findText(blueprint.type)
+        if index != -1:
+            self.type_combo.setCurrentIndex(index)
+
+        # You may also need to populate materials and other fields based on your application logic
 
     def load_blueprints(self):
-        if os.path.exists(self.blueprints_path):  # Check if the file exists
-            with open(self.blueprints_path, 'r') as f:
-                self.blueprints = json.load(f)  # Load blueprints from file
-            print("Blueprints loaded successfully:", self.blueprints)
-        else:
-            print("No blueprints file found, starting with an empty blueprint set")
+        self.blueprint_manager.load_blueprints()
 
     def save_blueprint(self):
         name = self.name_edit.text()
         level = self.level_edit.value()
         type = self.type_combo.currentText()
-        class_field = self.class_combo.currentText()
 
-        materials = []
-        for row in range(self.materials_layout.rowCount()):
-            qty_edit = self.materials_layout.itemAtPosition(row, 0).widget()
-            material_edit = self.materials_layout.itemAtPosition(row, 1).widget()
-            materials.append((qty_edit.text(), material_edit.text()))
+        # Assuming you have a method to retrieve materials from the material container
+        materials = self.materials_container.get_materials()
 
-        is_limited = type == "Limited"
-        attempts = self.attempts_edit.value() if is_limited else None
+        blueprint = Blueprint(name, level, type, materials)
+        self.blueprint_manager.add_blueprint(blueprint)
 
-        blueprint = Blueprint(name, level, type, class_field, materials, is_limited, attempts)
-        self.blueprints[name] = blueprint  # Add blueprint to the dictionary
-
-        # Save the blueprints dictionary to a file
-        with open('blueprints.json', 'w') as f:
-            json.dump({name: blueprint.to_dict() for name, blueprint in self.blueprints.items()}, f)
-
-        print("Blueprint saved successfully:", blueprint.__dict__)
-
-    @classmethod
-    def get_blueprint(cls, name):
-        return cls.blueprints.get(name)
+        print("Blueprint saved successfully:", blueprint)
 
     def validate(self):
-        # Add validation logic if needed
         return True
 
 
@@ -171,10 +129,11 @@ class FirstPanel(QWidget):
         self.setLayout(layout)
 
 
+from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QListView, QVBoxLayout, QMessageBox
+
 class SecondPanel(QWidget):
     def __init__(self):
         super().__init__()
-
         self.init_ui()
 
     def init_ui(self):
@@ -189,7 +148,7 @@ class SecondPanel(QWidget):
         search_layout = QVBoxLayout()
         self.item_search_button = QPushButton()
         self.item_search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
-        # self.item_search_button.clicked.connect(self.craft_item_search)
+        self.item_search_button.clicked.connect(self.item_search)
         search_layout.addWidget(QLabel())
         search_layout.addWidget(self.item_search_button)
 
@@ -205,10 +164,49 @@ class SecondPanel(QWidget):
         class_layout.addWidget(class_label)
         class_layout.addWidget(self.class_combo)
 
-
         layout.addLayout(name_layout)
         layout.addLayout(search_layout)
         layout.addLayout(class_layout)
 
         self.setLayout(layout)
+
+    def item_search(self):
+        item_manager = ItemManager()  # Access the singleton instance of ItemManager
+        search_text = self.crafted_item_edit.text().strip()  # Get the search text
+        if search_text:
+            matching_items = item_manager.item_search(search_text)
+            if matching_items:
+                self.show_selection_dialog(matching_items)
+            else:
+                QMessageBox.warning(self, "No Items Found", "No items found matching the search criteria.")
+        else:
+            QMessageBox.warning(self, "Search Error", "Please enter a search query.")
+
+    def show_selection_dialog(self, matching_items):
+        dialog = QDialog(self)
+        dialog.setWindowTitle("Select Item")
+        dialog_layout = QVBoxLayout()
+
+        list_view = QListView()
+
+        # Extract names from Item objects and convert to strings
+        item_names = [item.name for item in matching_items]
+
+        model = QStringListModel(item_names)
+        list_view.setModel(model)
+
+        dialog_layout.addWidget(list_view)
+
+        button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+        button_box.accepted.connect(dialog.accept)
+        button_box.rejected.connect(dialog.reject)
+
+        dialog_layout.addWidget(button_box)
+
+        dialog.setLayout(dialog_layout)
+
+        if dialog.exec() == QDialog.DialogCode.Accepted:
+            selected_item_index = list_view.selectedIndexes()[0]
+            selected_item = matching_items[selected_item_index.row()]
+            self.crafted_item_edit.setText(selected_item.name)
 
