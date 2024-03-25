@@ -1,6 +1,6 @@
 import os
 
-from PyQt6.QtCore import QStringListModel
+from PyQt6.QtCore import QStringListModel, QItemSelectionModel
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, \
     QSpinBox, QDoubleSpinBox, QMessageBox, QStyle
 from entity.blueprint import Blueprint
@@ -41,7 +41,7 @@ class BlueprintWindow(QMainWindow):
 
         # Seventh Line: Search, and Save Buttons
         seventh_line_layout = QHBoxLayout()
-        self.blueprint_search_button = QPushButton("Search Material")
+        self.blueprint_search_button = QPushButton("Search Blueprint")
         self.blueprint_search_button.clicked.connect(self.search_blueprint)
         seventh_line_layout.addWidget(self.blueprint_search_button)
 
@@ -183,30 +183,38 @@ class SecondPanel(QWidget):
             QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
     def show_selection_dialog(self, matching_items):
-        dialog = QDialog(self)
-        dialog.setWindowTitle("Select Item")
-        dialog_layout = QVBoxLayout()
+        if matching_items:
+            dialog = QDialog(self)
+            dialog.setWindowTitle("Select Item")
+            dialog_layout = QVBoxLayout()
 
-        list_view = QListView()
+            list_view = QListView()
 
-        # Extract names from Item objects and convert to strings
-        item_names = [item.name for item in matching_items]
+            # Extract names from Item objects and convert to strings
+            item_names = [item.name for item in matching_items]
 
-        model = QStringListModel(item_names)
-        list_view.setModel(model)
+            model = QStringListModel(item_names)
+            list_view.setModel(model)
 
-        dialog_layout.addWidget(list_view)
+            dialog_layout.addWidget(list_view)
 
-        button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
-        button_box.accepted.connect(dialog.accept)
-        button_box.rejected.connect(dialog.reject)
+            button_box = QDialogButtonBox(QDialogButtonBox.StandardButton.Ok | QDialogButtonBox.StandardButton.Cancel)
+            button_box.accepted.connect(dialog.accept)
+            button_box.rejected.connect(dialog.reject)
 
-        dialog_layout.addWidget(button_box)
+            dialog_layout.addWidget(button_box)
 
-        dialog.setLayout(dialog_layout)
+            dialog.setLayout(dialog_layout)
 
-        if dialog.exec() == QDialog.DialogCode.Accepted:
-            selected_item_index = list_view.selectedIndexes()[0]
-            selected_item = matching_items[selected_item_index.row()]
-            self.crafted_item_edit.setText(selected_item.name)
+            # Select the first item in the list view by default
+            first_item_index = model.index(0, 0)  # Get index of the first item
+            list_view.selectionModel().select(first_item_index, QItemSelectionModel.SelectionFlag.Select)
 
+            if dialog.exec() == QDialog.DialogCode.Accepted:
+                selected_indexes = list_view.selectedIndexes()
+                if selected_indexes:
+                    selected_item_index = selected_indexes[0]
+                    selected_item = matching_items[selected_item_index.row()]
+                    self.crafted_item_edit.setText(selected_item.name)
+        else:
+            QMessageBox.warning(self, "No Items Found", "No items found matching the search criteria.")

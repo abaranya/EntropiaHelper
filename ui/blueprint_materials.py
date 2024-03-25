@@ -1,12 +1,12 @@
-from PyQt6.QtGui import QIcon
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QDoubleSpinBox, QLineEdit, QStyle, QComboBox, QMessageBox, QDialog
-
+from manager.material_manager import MaterialManager  # Import MaterialManager
 
 class MaterialWidget(QWidget):
     material_rows = []
 
     def __init__(self):
         super().__init__()
+        self.material_manager = MaterialManager()  # Get the singleton instance of MaterialManager
 
         # Create the layout for the material widget
         layout = QVBoxLayout()
@@ -46,46 +46,44 @@ class MaterialWidget(QWidget):
         row_layout.addWidget(search_button)
 
         # Add the row layout to the container layout
-        self.material_rows.append(row_layout)
+        self.material_rows.append((qty_edit, material_edit))  # Save references to spin box and line edit
         material_layout = self.materials_row_container.layout()
         material_layout.addLayout(row_layout)
 
     def search_material(self, row):
-        matching_materials = [material for material in self.materials_dict if self.material_rows[row].lower() in material.lower()]
-
-        if matching_materials:
-            # If multiple materials are found, prompt the user to choose from a list
-            if len(matching_materials) > 1:
+        search_text = self.material_rows[row][1].text().strip()  # Get the search text from line edit
+        if search_text:
+            matching_materials = self.material_manager.search_materials(search_text)
+            if matching_materials:
                 self.show_material_selection_dialog(row, matching_materials)
             else:
-                # If only one material is found, set it directly in the QLineEdit
-                self.material_rows[row].material_edit.setText(matching_materials[0])
+                QMessageBox.warning(self, "No Matches", "No matching materials found.")
         else:
-            QMessageBox.information(self, "No Matches", "No matching materials found.")
+            QMessageBox.warning(self, "Search Error", "Please enter a search query.")
 
     def show_material_selection_dialog(self, row, matching_materials):
         dialog = MaterialSelectionDialog(matching_materials)
         if dialog.exec():
             selected_material = dialog.selected_material()
-            self.material_rows[row].material_edit.setText(selected_material)
+            self.material_rows[row][1].setText(selected_material)
 
-    class MaterialSelectionDialog(QDialog):
-        def __init__(self, materials):
-            super().__init__()
-            self.materials = materials
+class MaterialSelectionDialog(QDialog):
+    def __init__(self, materials):
+        super().__init__()
+        self.materials = materials
 
-            self.setWindowTitle("Select Material")
-            layout = QVBoxLayout()
+        self.setWindowTitle("Select Material")
+        layout = QVBoxLayout()
 
-            self.material_combo = QComboBox()
-            self.material_combo.addItems(materials)
-            layout.addWidget(self.material_combo)
+        self.material_combo = QComboBox()
+        self.material_combo.addItems(materials)
+        layout.addWidget(self.material_combo)
 
-            self.select_button = QPushButton("Select")
-            self.select_button.clicked.connect(self.accept)
-            layout.addWidget(self.select_button)
+        self.select_button = QPushButton("Select")
+        self.select_button.clicked.connect(self.accept)
+        layout.addWidget(self.select_button)
 
-            self.setLayout(layout)
+        self.setLayout(layout)
 
-        def selected_material(self):
-            return self.material_combo.currentText()
+    def selected_material(self):
+        return self.material_combo.currentText()
