@@ -49,7 +49,7 @@ class MaterialWidget(QWidget):
         row_layout.addWidget(search_button)
 
         # Add the row layout to the container layout
-        self.material_rows.append((qty_edit, material_edit))  # Save references to spin box and line edit
+        self.material_rows.append((qty_edit, material_edit, search_button))  # Save references to spin box and line edit
         material_layout = self.materials_row_container.layout()
         material_layout.addLayout(row_layout)
 
@@ -72,7 +72,7 @@ class MaterialWidget(QWidget):
 
     def get_materials(self):
         materials = []
-        for qty_edit, material_edit in self.material_rows:
+        for qty_edit, material_edit, _ in self.material_rows:
             name = material_edit.text().strip()
             if name and self.material_manager.get_material(name):
                 materials.append({"quantity": qty_edit.value(), "name": name})
@@ -83,6 +83,7 @@ class MaterialWidget(QWidget):
         for row_layout in self.material_rows:
             for widget in row_layout:
                 widget.setParent(None)
+
         # Clear the list of material rows
         self.material_rows.clear()
 
