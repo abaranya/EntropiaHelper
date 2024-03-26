@@ -187,6 +187,7 @@ class ItemWindow(QMainWindow):
 
         item = Item(name, description, category, value, markup, tt_cost, full_cost, cost_markup)
         self.item_manager.add_item(item)
+        self.item_manager.save_items()
 
         print("Item saved successfully:", item.__dict__)
 

@@ -67,6 +67,15 @@ class MaterialWidget(QWidget):
             selected_material = dialog.selected_material()
             self.material_rows[row][1].setText(selected_material)
 
+    def get_materials(self):
+        materials = []
+        for qty_edit, material_edit in self.material_rows:
+            name = material_edit.text().strip()
+            if name and self.material_manager.get_material(name):
+                materials.append((qty_edit.value(), name))
+        return materials
+
+
 class MaterialSelectionDialog(QDialog):
     def __init__(self, materials):
         super().__init__()

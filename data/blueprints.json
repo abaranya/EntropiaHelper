@@ -1,0 +1,1 @@
+{"Basic Sheet Metal": {"name": "Basic Sheet Metal", "level": 1, "type": "Unlimited", "crafted_item": "Basic Sheet Metal", "class_field": "Material", "materials": [{"quantity": 1.0, "name": "Narcanisum Ingot"}, {"quantity": 1.0, "name": "Alicenies Gel"}], "is_limited": false, "attempts": null}}

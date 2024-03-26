@@ -34,7 +34,11 @@ class BlueprintWindow(QMainWindow):
         self.type_combo = first_panel.type_combo
         layout.addWidget(first_panel)
 
-        layout.addWidget(SecondPanel())
+        self.second_panel = SecondPanel()
+        self.crafted_item_edit = self.second_panel.crafted_item_edit
+        self.class_combo = self.second_panel.class_combo
+        layout.addWidget(self.second_panel)
+
 
         self.materials_container = MaterialWidget()
         layout.addWidget(self.materials_container)
@@ -77,18 +81,23 @@ class BlueprintWindow(QMainWindow):
     def load_blueprints(self):
         self.blueprint_manager.load_blueprints()
 
+
     def save_blueprint(self):
         name = self.name_edit.text()
         level = self.level_edit.value()
-        type = self.type_combo.currentText()
+        blueprint_type = self.type_combo.currentText()
 
-        # Assuming you have a method to retrieve materials from the material container
+        crafted_item = self.second_panel.crafted_item_edit.text()  # Get text directly from the QLineEdit
+        class_field = self.second_panel.class_combo.currentText()  # Get current text directly from the QComboBox
+
+        # Retrieve materials with their quantities
         materials = self.materials_container.get_materials()
 
-        blueprint = Blueprint(name, level, type, materials)
+        blueprint = Blueprint(name, level, blueprint_type, crafted_item, class_field, materials)
         self.blueprint_manager.add_blueprint(blueprint)
+        self.blueprint_manager.save_blueprints()
 
-        print("Blueprint saved successfully:", blueprint)
+        print("Blueprint saved successfully:", blueprint.to_dict())
 
     def validate(self):
         return True

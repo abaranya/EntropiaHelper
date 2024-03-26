@@ -41,11 +41,10 @@ class MaterialManager:
             print("No materials file found, starting with an empty material set")
 
     def save_materials(self):
-        data = {material.name: material.quantity for material in self.materials.values()}
-        # with open(self.filename, 'w') as f:
-        #     json.dump(data, f)
-        # print("Materials saved successfully")
-        print(f'we are about to save {len(data)} materials as {data}')
+        data = {material.name: material.to_dict() for material in self.materials.values()}
+        with open(self.materials_path, 'w') as f:
+            json.dump(data, f)
+        print("Materials saved successfully")
 
     def add_material(self, material):
         if material.name not in self.materials:
