@@ -33,12 +33,15 @@ class MaterialWidget(QWidget):
         # Connect the add material button to add_material_row method
         self.add_material_button.clicked.connect(self.add_material_row)
 
-    def add_material_row(self):
+    def add_material_row(self, qty=0, name=None):
         # This method adds a new material row to the container
         row_layout = QHBoxLayout()
         qty_edit = QDoubleSpinBox()
+        qty_edit.setDecimals(0)
+        qty_edit.setValue(qty)
         row_layout.addWidget(qty_edit)
         material_edit = QLineEdit()
+        material_edit.setText(name)
         row_layout.addWidget(material_edit)
         search_button = QPushButton()
         search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
@@ -72,8 +75,16 @@ class MaterialWidget(QWidget):
         for qty_edit, material_edit in self.material_rows:
             name = material_edit.text().strip()
             if name and self.material_manager.get_material(name):
-                materials.append((qty_edit.value(), name))
+                materials.append({"quantity": qty_edit.value(), "name": name})
         return materials
+
+    def clear_materials(self):
+        # Remove all material rows from the layout
+        for row_layout in self.material_rows:
+            for widget in row_layout:
+                widget.setParent(None)
+        # Clear the list of material rows
+        self.material_rows.clear()
 
 
 class MaterialSelectionDialog(QDialog):

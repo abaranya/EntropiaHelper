@@ -14,7 +14,7 @@ class Blueprint:
 
     def to_dict(self):
         # Serialize each material as a dictionary containing quantity and name
-        materials_dict = [{"quantity": material[0], "name": material[1]} for material in self.materials]
+        # materials_dict = [{"quantity": material[0], "name": material[1]} for material in self.materials]
 
         return {
             "name": self.name,
@@ -22,7 +22,7 @@ class Blueprint:
             "type": self.type,
             "crafted_item": self.crafted_item,
             "class_field": self.class_field,
-            "materials": materials_dict,  # Use the serialized materials dictionary
+            "materials": self.materials,  # Use the serialized materials dictionary
             "is_limited": self.is_limited,
             "attempts": self.attempts
         }

@@ -2,7 +2,7 @@ import os
 
 from PyQt6.QtCore import QStringListModel, QItemSelectionModel
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QWidget, QLineEdit, QHBoxLayout, QComboBox, \
-    QSpinBox, QDoubleSpinBox, QMessageBox, QStyle
+    QSpinBox, QDoubleSpinBox, QMessageBox, QStyle, QInputDialog
 from entity.blueprint import Blueprint
 from manager.item_manager import ItemManager
 from ui.blueprint_materials import MaterialWidget
@@ -39,7 +39,6 @@ class BlueprintWindow(QMainWindow):
         self.class_combo = self.second_panel.class_combo
         layout.addWidget(self.second_panel)
 
-
         self.materials_container = MaterialWidget()
         layout.addWidget(self.materials_container)
 
@@ -61,26 +60,45 @@ class BlueprintWindow(QMainWindow):
     def search_blueprint(self):
         name_substring = self.name_edit.text().strip()
         if name_substring:
-            found_blueprint = self.blueprint_manager.search_blueprint(name_substring)
-            if found_blueprint:
-                self.populate_blueprint_fields(found_blueprint)
+            matching_blueprints = self.blueprint_manager.search_blueprint(name_substring)
+            if matching_blueprints:
+                # blueprint_names = [bp.name for bp in matching_blueprints]
+                selected_blueprint, _ = QInputDialog.getItem(self, "Select Blueprint", "Matching Blueprints:",
+                                                             matching_blueprints, 0, False)
+                if selected_blueprint:
+                    # selected_blueprint = next((bp for bp in matching_blueprints if bp.name == selected_blueprint), None)
+                    # if selected_blueprint:
+                    self.populate_blueprint_fields(self.blueprint_manager.get_blueprint(selected_blueprint))
+                else:
+                    QMessageBox.warning(self, "Error", "Failed to retrieve selected blueprint.")
             else:
                 QMessageBox.information(self, "Search Result", "No blueprint found matching the name substring.")
         else:
             QMessageBox.warning(self, "Search Error", "Please enter a name substring to search.")
 
     def populate_blueprint_fields(self, blueprint):
+        # Populate basic fields
         self.name_edit.setText(blueprint.name)
         self.level_edit.setValue(blueprint.level)
         index = self.type_combo.findText(blueprint.type)
         if index != -1:
             self.type_combo.setCurrentIndex(index)
 
-        # You may also need to populate materials and other fields based on your application logic
+        # Populate crafted item and class
+        self.crafted_item_edit.setText(blueprint.crafted_item)
+        index = self.class_combo.findText(blueprint.class_field)
+        if index != -1:
+            self.class_combo.setCurrentIndex(index)
+
+        # Populate materials
+        self.materials_container.clear_materials()  # Clear existing materials
+        for material in blueprint.materials:
+            self.materials_container.add_material_row(material["quantity"], material["name"])
+
+        # Add logic to populate other fields as needed
 
     def load_blueprints(self):
         self.blueprint_manager.load_blueprints()
-
 
     def save_blueprint(self):
         name = self.name_edit.text()
@@ -139,6 +157,7 @@ class FirstPanel(QWidget):
 
 
 from PyQt6.QtWidgets import QDialog, QDialogButtonBox, QListView, QVBoxLayout, QMessageBox
+
 
 class SecondPanel(QWidget):
     def __init__(self):
