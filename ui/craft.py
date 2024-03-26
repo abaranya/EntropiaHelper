@@ -1,8 +1,8 @@
-from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout, QPushButton, QStyle
+from PyQt6.QtWidgets import QMainWindow, QLabel, QComboBox, QLineEdit, QVBoxLayout, QGridLayout, QWidget, QHBoxLayout, \
+    QPushButton, QStyle, QGroupBox
 from PyQt6.QtCore import Qt
-from ui.material_window import MaterialWindow
-from ui.blueprint_window import BlueprintWindow
-from ui.item_window import ItemWindow
+from ui.action_panel import ActionPanel
+
 
 class CraftWindow(QMainWindow):
     def __init__(self, transparency):
@@ -18,9 +18,9 @@ class CraftWindow(QMainWindow):
 
         # Blueprint selection
         blueprint_label = QLabel("Blueprint:")
-        blueprint_combo = QComboBox()
+        blueprint_edit = QLineEdit()
         layout.addWidget(blueprint_label)
-        layout.addWidget(blueprint_combo)
+        layout.addWidget(blueprint_edit)
 
         # Number of attempts
         attempts_label = QLabel("Number of Attempts:")
@@ -31,7 +31,7 @@ class CraftWindow(QMainWindow):
         # Blueprint and Number of attempts layout
         blueprint_layout = QHBoxLayout()
         blueprint_layout.addWidget(blueprint_label)
-        blueprint_layout.addWidget(blueprint_combo, 3)  # Blueprint occupies 75% of width
+        blueprint_layout.addWidget(blueprint_edit, 3)  # Blueprint occupies 75% of width
         blueprint_layout.addWidget(attempts_label)
         blueprint_layout.addWidget(attempts_edit)  # Number of attempts occupies the remaining space
         layout.addLayout(blueprint_layout)
@@ -73,32 +73,6 @@ class CraftWindow(QMainWindow):
         layout.addWidget(total_cost_label)
         layout.addWidget(total_cost_value)
 
-        # Buttons for materials and blueprint
-        button_layout = QHBoxLayout()
-        materials_button = QPushButton("Materials")
-        materials_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_BrowserReload))
-        materials_button.clicked.connect(self.open_material_window)  # Connect the button click event to open_material_window method
-
-        items_button = QPushButton("Items")
-        items_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_ComputerIcon))
-        items_button.clicked.connect(self.open_items_window)  # Connect the button click event to open_items_window method
-
-        blueprint_button = QPushButton("Blueprint")
-        blueprint_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileIcon))
-        blueprint_button.clicked.connect(self.open_blueprint_window)  # Connect the button click event to open_blueprint_window method
-
-        button_layout.addWidget(materials_button)
-        button_layout.addWidget(items_button)
-        button_layout.addWidget(blueprint_button)
-        layout.addLayout(button_layout)
-
-    def open_material_window(self):
-        self.material_window = MaterialWindow(self.windowOpacity())  # Pass transparency value to MaterialWindow
-        self.material_window.show()
-
-    def open_blueprint_window(self):
-        self.blueprint_window = BlueprintWindow(self.windowOpacity())  # Pass transparency value to BlueprintWindow
-        self.blueprint_window.show()
-    def open_items_window(self):
-        self.item_window = ItemWindow(self.windowOpacity())  # Pass transparency value to ItemsWindow
-        self.item_window.show()
+        # Encapsulate buttons within a panel
+        buttons_panel = ActionPanel()
+        layout.addWidget(buttons_panel)
