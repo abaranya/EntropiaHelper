@@ -1,5 +1,7 @@
 from PyQt6.QtWidgets import QWidget, QVBoxLayout, QLabel, QPushButton, QHBoxLayout, QDoubleSpinBox, QLineEdit, QStyle, QComboBox, QMessageBox, QDialog
 from manager.material_manager import MaterialManager  # Import MaterialManager
+from ui.material_selection_dialog import MaterialSelectionDialog
+
 
 class MaterialWidget(QWidget):
     material_rows = []
@@ -44,7 +46,7 @@ class MaterialWidget(QWidget):
         material_edit.setText(name)
         row_layout.addWidget(material_edit)
         search_button = QPushButton()
-        search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
+        search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
         search_button.clicked.connect(lambda checked, row=len(self.material_rows): self.search_material(row))
         row_layout.addWidget(search_button)
 
@@ -88,23 +90,4 @@ class MaterialWidget(QWidget):
         self.material_rows.clear()
 
 
-class MaterialSelectionDialog(QDialog):
-    def __init__(self, materials):
-        super().__init__()
-        self.materials = materials
 
-        self.setWindowTitle("Select Material")
-        layout = QVBoxLayout()
-
-        self.material_combo = QComboBox()
-        self.material_combo.addItems(materials)
-        layout.addWidget(self.material_combo)
-
-        self.select_button = QPushButton("Select")
-        self.select_button.clicked.connect(self.accept)
-        layout.addWidget(self.select_button)
-
-        self.setLayout(layout)
-
-    def selected_material(self):
-        return self.material_combo.currentText()

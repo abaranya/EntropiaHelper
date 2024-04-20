@@ -2,7 +2,7 @@ import json
 import os
 from PyQt6.QtWidgets import QMainWindow, QLabel, QVBoxLayout, QPushButton, QStyle, QWidget, QLineEdit, QHBoxLayout, \
     QComboBox, QMessageBox, QDoubleSpinBox
-from PyQt6.QtCore import QDate, QStringListModel
+from PyQt6.QtCore import QDate, QStringListModel, Qt
 
 from entity.item import Item
 from manager.item_manager import ItemManager
@@ -93,10 +93,12 @@ class ItemWindow(QMainWindow):
         self.full_cost_edit.setDecimals(2)
         self.full_cost_edit.setSuffix(" PED")
         self.full_cost_edit.setMaximum(9999999.99)
+        self.full_cost_edit.setAlignment(Qt.AlignmentFlag.AlignRight)
         self.cost_markup_edit = QDoubleSpinBox()
         self.cost_markup_edit.setDecimals(2)
         self.cost_markup_edit.setSuffix(" %")
         self.cost_markup_edit.setMaximum(9999999.99)
+        self.cost_markup_edit.setAlignment(Qt.AlignmentFlag.AlignRight)
         eighth_line_layout.addWidget(self.tt_cost_edit)
         eighth_line_layout.addWidget(self.full_cost_edit)
         eighth_line_layout.addWidget(self.cost_markup_edit)

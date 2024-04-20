@@ -63,7 +63,7 @@ class MaterialWindow(QMainWindow):
 
         button_layout = QHBoxLayout()
         search_button = QPushButton("Search")
-        search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogInfoView))
+        search_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_FileDialogContentsView))
         search_button.clicked.connect(self.search_material)  # Connect the button click event to search_material method
         save_button = QPushButton("Save")
         save_button.setIcon(self.style().standardIcon(QStyle.StandardPixmap.SP_DialogSaveButton))
