@@ -1,6 +1,8 @@
 import json
 import os
 from entity.shop_inventory import ShopInventory
+from entity.material_pack import MaterialPack
+
 
 class ShopManager:
     _instance = None
@@ -45,8 +47,13 @@ class ShopManager:
 
         print("Shop inventory saved successfully")
 
-    def add_material(self, shop, material_name, price, quantity, sold_price=None, sold_date=None):
+    def add_material(self, shop, pack_name, package):
         if shop not in self.shop_inventory:
-            self.shop_inventory[shop] = {}
-        else:
-            self.shop_inventory[shop].add_material(material_name, price, quantity, sold_price, sold_date)
+            self.shop_inventory[shop] = ShopInventory()
+        self.shop_inventory[shop].add_material(pack_name, package)
+
+    def add_item(self, shop, package, item_pack):
+        if shop not in self.shop_inventory:
+            self.shop_inventory[shop] = ShopInventory()
+
+        self.shop_inventory[shop].add_item(package, item_pack)
