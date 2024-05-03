@@ -29,8 +29,10 @@ class ShopManager:
             with open(self.filename, 'r') as f:
                 loaded_shop_inventory = json.load(f)  # Load shop inventory from file
 
-                self.shop_inventory['Shop 2'] = ShopInventory.from_json(loaded_shop_inventory.get('Shop 2', {}))
-                self.shop_inventory['Shop 3'] = ShopInventory.from_json(loaded_shop_inventory.get('Shop 3', {}))
+                self.shop_inventory['Shop 2'] = ShopInventory.from_json(
+                    loaded_shop_inventory.get('Shop 2', ShopInventory()))
+                self.shop_inventory['Shop 3'] = ShopInventory.from_json(
+                    loaded_shop_inventory.get('Shop 3', ShopInventory()))
 
             print("Shop inventory loaded successfully:", self.shop_inventory)
         else:

@@ -1,5 +1,8 @@
 import json
 
+from entity.item_pack import ItemPack
+from entity.material_pack import MaterialPack
+
 
 class ShopInventory:
     def __init__(self):
@@ -13,11 +16,13 @@ class ShopInventory:
             "materials": {key: value.to_dict() for key, value in self.materials.items()}
         }
 
+
     @classmethod
     def from_json(cls, json_data):
         shop_inventory = cls()
-        shop_inventory.items = json_data["items"]
-        shop_inventory.materials = json_data["materials"]
+        shop_inventory.items = {key: ItemPack.from_dict(value) for key, value in json_data.get("items", {}).items()}
+        shop_inventory.materials = {key: MaterialPack.from_dict(value) for key, value in
+                                    json_data.get("materials", {}).items()}
         return shop_inventory
 
     def add_item(self, package, item_pack):

@@ -1,3 +1,4 @@
+import datetime
 import unittest
 
 from entity.item_pack import ItemPack
@@ -49,10 +50,11 @@ class ShopManagerTest(unittest.TestCase):
 
         # Assert that the shop inventory was saved and reloaded successfully
         self.assertIn('Pyrite 1', self.shop_manager.shop_inventory['Shop 2'].materials)
-        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1']['name'], 'Pyrite Ingot')
-        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1']['quantity'], 18)
-        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1']['price'], 16.13)
-        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1']['sold_date'], '2024-03-22')
+        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1'].name, 'Pyrite Ingot')
+        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1'].quantity, 18)
+        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1'].price, 16.13)
+        self.assertEqual(self.shop_manager.shop_inventory['Shop 2'].materials['Pyrite 1'].sold_date,
+                         datetime.datetime.fromisoformat('2024-03-22'))
 
 
 if __name__ == '__main__':
