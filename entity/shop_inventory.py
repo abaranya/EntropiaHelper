@@ -39,6 +39,9 @@ class ShopInventory:
     def get_item(self, package):
         return self.items.get(package, None)
 
+    def get_items(self):
+        return self.items
+
     def add_material(self, pack_name, package):
         self.materials[pack_name] = package
         return package
@@ -51,3 +54,7 @@ class ShopInventory:
 
     def get_material(self, material_id):
         return self.materials.get(material_id, None)
+
+    def get_materials(self):
+        return self.materials
+

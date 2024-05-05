@@ -4,8 +4,12 @@ from PyQt6.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel, QHBo
 from PyQt6.QtGui import QFont, QIcon
 from PyQt6.QtCore import Qt
 import qdarktheme
+
+from manager.shop_manager import ShopManager
 from ui.config import ConfigWindow
 from ui.craft import CraftWindow
+from ui.shop_inventory_window import InventoryWindow
+
 
 class EntropiaHelperApp(QMainWindow):
     def __init__(self):
@@ -16,6 +20,7 @@ class EntropiaHelperApp(QMainWindow):
         self.setStyleSheet("background-color: #202020; color: white;")
         self.config_window = ConfigWindow()  # Initialize config_window to be used to load config_dta
         self.craft_window = None  # Initialize craft_window attribute
+        self.shop_window = None
 
         self.create_widgets()
         self.load_config()  # Load configuration from file
@@ -79,6 +84,13 @@ class EntropiaHelperApp(QMainWindow):
         self.craft_button.clicked.connect(self.open_craft_window)
         layout.addWidget(self.craft_button)
 
+        # Add the "craft" button and connect it to open_craft_window method
+        self.shop_button = QPushButton(self)
+        self.shop_button.setStyleSheet("background-color: #404040; color: white;")
+        self.shop_button.setIcon(QIcon.fromTheme("weather-few-clouds"))
+        self.shop_button.clicked.connect(self.open_shop_window)
+        layout.addWidget(self.shop_button)
+
         # Add Config button at the end
         self.config_button = QPushButton(self)
         self.config_button.setStyleSheet("background-color: #404040; color: white;")
@@ -135,6 +147,13 @@ class EntropiaHelperApp(QMainWindow):
             self.craft_window.show()
         else:
             self.craft_window.show()
+
+    def open_shop_window(self):
+        if self.shop_window is None:  # Check if shop_window is already created
+            self.shop_window = InventoryWindow(self.transparency)
+            self.shop_window.show()
+        else:
+            self.shop_window.show()
 
     def start_reading(self):
         pass  # Placeholder for reading logic

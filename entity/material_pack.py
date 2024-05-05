@@ -3,8 +3,9 @@ from datetime import datetime
 
 
 class MaterialPack:
-    def __init__(self, name: str, quantity: int, price: float, since_date: str, sold_price: str = None,
+    def __init__(self, item_type: str, name: str, quantity: int, price: float, since_date: str, sold_price: float = None,
                  sold_date: str = None):
+        self.item_type = item_type
         self.name = name
         self.quantity = quantity
         self.price = price
@@ -17,6 +18,7 @@ class MaterialPack:
 
     def to_dict(self):
         return {
+            "item_type": self.item_type,
             "name": self.name,
             "quantity": self.quantity,
             "price": self.price,
@@ -28,6 +30,7 @@ class MaterialPack:
     @classmethod
     def from_dict(cls, json_data):
         # Parse the JSON dictionary into constructor parameters
+        item_type = json_data.get('item_type')
         name = json_data.get('name')
         quantity = json_data.get('quantity', 0)  # Default quantity to 0 if not specified
         price = json_data.get('price', 0.0)  # Default price to 0.0 if not specified
@@ -37,4 +40,26 @@ class MaterialPack:
         sold_price = json_data.get('sold_price')
         sold_date = json_data.get('sold_date')
 
-        return cls(name, quantity, price, since_date, sold_price, sold_date)
+        return cls(item_type, name, quantity, price, since_date, sold_price, sold_date)
+
+    def field_list(self):
+        """Returns a list of fields representing the item's data."""
+        return [
+            self.item_type,
+            self.name,
+            "{:d}".format(self.quantity),
+            "{:.2f}".format(self.price),
+            self.since_date.strftime('%Y-%m-%d'),
+            "{:.2f}".format(self.sold_price) if self.sold_price is not None else "N/A",
+            self.sold_date.strftime('%Y-%m-%d') if self.sold_date else "N/A"
+        ]
+
+    def days_on_market(self):
+        """Returns the number of days the material was on the market. If not sold, calculates days until today."""
+        if self.sold_date:
+            if self.sold_date < self.since_date:
+                raise ValueError("Sold date cannot be before since date.")
+            return (self.sold_date - self.since_date).days
+        else:
+            # Calculate the days on market from since_date to today if not yet sold
+            return (datetime.now() - self.since_date).days

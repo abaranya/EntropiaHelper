@@ -59,3 +59,10 @@ class ShopManager:
             self.shop_inventory[shop] = ShopInventory()
 
         self.shop_inventory[shop].add_item(package, item_pack)
+
+    def get_items(self, shop_name):
+        return self.shop_inventory[shop_name].get_items()
+
+    def get_materials(self, shop_name):
+        return self.shop_inventory[shop_name].get_materials()
+

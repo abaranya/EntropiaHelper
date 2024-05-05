@@ -1,1 +1,22 @@
-{"Level 3 Finder Amplifier (L)": {"name": "Level 3 Finder Amplifier (L)", "description": "Level 3 Finder Amplifier (L)", "category": "Finder Amplifier", "value": 114.0, "markup": 109.3, "tt_cost": 9.0, "full_cost": 9.5, "cost_markup": 107.0}, "Basic Sheet Metal": {"name": "Basic Sheet Metal", "description": "Basic Sheet Metal", "category": "Material", "value": 0.04, "markup": 101.0, "tt_cost": 0.34, "full_cost": 0.36, "cost_markup": 106.5}}
+{
+  "Level 3 Finder Amplifier (L)": {
+    "name": "Level 3 Finder Amplifier (L)",
+    "description": "Level 3 Finder Amplifier (L)",
+    "category": "Finder Amplifier",
+    "value": 114.0,
+    "markup": 109.3,
+    "tt_cost": 9.0,
+    "full_cost": 9.5,
+    "cost_markup": 107.0
+  },
+  "Basic Sheet Metal": {
+    "name": "Basic Sheet Metal",
+    "description": "Basic Sheet Metal",
+    "category": "Material",
+    "value": 0.04,
+    "markup": 101.0,
+    "tt_cost": 0.34,
+    "full_cost": 0.36,
+    "cost_markup": 106.5
+  }
+}

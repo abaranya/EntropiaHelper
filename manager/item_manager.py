@@ -49,6 +49,9 @@ class ItemManager:
         matching_items = [item for item in self.items.values() if search_query in item.name.lower()]
         return matching_items
 
+    def search(self, search_query):
+        return [item.name for item in self.item_search(search_query)]
+
     def add_item(self, item):
         if item.name not in self.items:
             self.items[item.name] = item
