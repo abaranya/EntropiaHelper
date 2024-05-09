@@ -7,9 +7,9 @@ from entity.material_pack import MaterialPack
 class MaterialInventoryTable(QTableWidget):
     def __init__(self, parent=None):
         super(MaterialInventoryTable, self).__init__(parent)
-        self.setColumnCount(8)  # Set the number of columns to match MaterialPack fields
+        self.setColumnCount(9)  # Set the number of columns to match MaterialPack fields
         self.setHorizontalHeaderLabels(
-            ['Pack', 'Item Type', 'Name', 'Quantity', 'Price', 'Since Date', 'Sold Price', 'Sold Date'])
+            ['Pack', 'Item Type', 'Name', 'Quantity', 'Price', 'Markup', 'Since Date', 'Sold Price', 'Sold Date'])
         self.verticalHeader().setDefaultSectionSize(10)  # Standard row height
         self.horizontalHeader().setSectionResizeMode(
             QHeaderView.ResizeMode.Stretch)  # Stretch columns to fill the table width
@@ -18,8 +18,8 @@ class MaterialInventoryTable(QTableWidget):
 
         # Assign tooltips only after headers have been confirmed set
         for i, title in enumerate(
-                ["Pack", "Item Type", "Name of the item", 'Quantity in Pack', "Price of the item", "Selling Since",
-                 "Sold Price", "Sold Date"]):
+                ["Pack", "Item Type", "Name of the item", 'Quantity in Pack', "Price of the item", 'Markup',
+                 "Selling Since", "Sold Price", "Sold Date"]):
             self.horizontalHeaderItem(i).setToolTip(title)
 
         self.setSortingEnabled(True)

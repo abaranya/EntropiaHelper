@@ -61,7 +61,7 @@ class MaterialManager:
     def get_material(self, name):
         return self.materials.get(name)
 
-    def search_materials(self, name_substring):
+    def search(self, name_substring):
         return [name for name in self.materials if name_substring.lower() in name.lower()]
 
     def delete_material(self, name):

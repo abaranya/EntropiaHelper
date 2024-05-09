@@ -43,6 +43,11 @@ class InventoryWindow(QMainWindow):
         self.add_item_button.clicked.connect(self.on_add_item)
         layout.addWidget(self.add_item_button)
 
+        # Save inventory button
+        self.save_button = QPushButton("Save Inventory")
+        self.save_button.clicked.connect(self.save_inventory)
+        layout.addWidget(self.save_button)
+
         # Table setup
         self.item_table = ItemInventoryTable()
         self.material_table = MaterialInventoryTable()
@@ -91,9 +96,11 @@ class InventoryWindow(QMainWindow):
         if self.current_inventory_type == 'Items':
             self.current_inventory_type = 'Materials'
             self.toggle_button.setText("Switch to Items")
+            self.add_item_button.setText("Add New Material")
         else:
             self.current_inventory_type = 'Items'
             self.toggle_button.setText("Switch to Materials")
+            self.add_item_button.setText("Add New Item")
         self.load_inventory(self.shop_name)
 
     def update_item_table(self, inventory):
@@ -103,3 +110,11 @@ class InventoryWindow(QMainWindow):
     def update_material_table(self, inventory):
         self.material_table.update_table(inventory)
         self.material_table.resizeColumnsToContents()
+
+    def save_inventory(self):
+        try:
+            # Assuming the ShopManager has a method to save all current inventory to a file or database
+            self.shop_manager.save_shop_inventory()
+            QMessageBox.information(self, "Save Successful", "The current inventory has been saved successfully.")
+        except Exception as e:
+            QMessageBox.critical(self, "Save Failed", f"Failed to save the inventory: {str(e)}")
