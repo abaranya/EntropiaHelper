@@ -66,3 +66,5 @@ class ShopManager:
     def get_materials(self, shop_name):
         return self.shop_inventory[shop_name].get_materials()
 
+    def get_shop_inventory(self, shop_name):
+        return self.shop_inventory[shop_name]

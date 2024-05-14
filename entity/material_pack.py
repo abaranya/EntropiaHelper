@@ -55,7 +55,7 @@ class MaterialPack:
             "{:.2f}".format(self.markup),
             self.since_date.strftime('%Y-%m-%d'),
             "{:.2f}".format(self.sold_price) if self.sold_price is not None else "N/A",
-            self.sold_date.strftime('%Y-%m-%d') if self.sold_date else "N/A"
+            self.sold_date.strftime('%Y-%m-%d') if self.sold_date is not None else "N/A"
         ]
 
     def days_on_market(self):

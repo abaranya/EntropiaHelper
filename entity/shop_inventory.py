@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from entity.item_pack import ItemPack
 from entity.material_pack import MaterialPack
@@ -58,3 +59,21 @@ class ShopInventory:
     def get_materials(self):
         return self.materials
 
+    def update_field_value(self, type, package, field_name, new_value):
+        # Example implementation logic
+        print(f"Updating {field_name} for {package} to {new_value}")
+        # Implement the actual database update logic here
+        # You might want to use a dictionary or a switch-case pattern based on field_name
+        # For instance:
+        if field_name == "sold_price":
+            # Update sold price in database
+            if type == "materials":
+                self.materials[package].sold_price = new_value
+            elif type == "items":
+                self.items[package].sold_price = new_value
+        elif field_name == "sold_date":
+            # Update sold date in database
+            if type == "materials":
+                self.materials[package].sold_date = datetime.strptime(new_value, '%Y-%m-%d')
+            elif type == "items":
+                self.items[package].sold_date = datetime.strptime(new_value, '%Y-%m-%d')

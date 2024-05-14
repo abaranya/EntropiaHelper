@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QMainWindow, QVBoxLayout, QWidget, QPushButton, QComboBox, QDialog, QMessageBox
 
+from entity.shop_inventory import ShopInventory
 from manager.shop_manager import ShopManager
 from ui.add_item_dialog import AddItemDialog
 from ui.add_material_dialog import AddMaterialDialog
@@ -49,8 +50,10 @@ class InventoryWindow(QMainWindow):
         layout.addWidget(self.save_button)
 
         # Table setup
-        self.item_table = ItemInventoryTable()
-        self.material_table = MaterialInventoryTable()
+        self.item_table = ItemInventoryTable(
+            shop_inventory=self.shop_manager.get_shop_inventory(self.shop_name))
+        self.material_table = MaterialInventoryTable(
+            shop_inventory=self.shop_manager.get_shop_inventory(self.shop_name))
 
         layout.addWidget(self.shop_selector)
         layout.addWidget(self.item_table)
@@ -62,17 +65,29 @@ class InventoryWindow(QMainWindow):
         if self.current_inventory_type == 'Items':
             self.material_table.hide()
             self.item_table.show()
-            inventory = self.shop_manager.get_items(shop_name)
+            inventory = self.shop_manager.get_shop_inventory(shop_name)
             self.update_item_table(inventory)
         else:
             self.item_table.hide()
             self.material_table.show()
-            inventory = self.shop_manager.get_materials(shop_name)
+            inventory = self.shop_manager.get_shop_inventory(shop_name)
             self.update_material_table(inventory)
 
     def change_shop(self, shop_name):
         self.shop_name = shop_name
         self.setWindowTitle(f"Inventory for {shop_name}")
+
+        # Retrieve the inventory for the newly selected shop
+        if self.current_inventory_type == 'Items':
+            inventory = self.shop_manager.get_shop_inventory(shop_name)
+            self.item_table.shop_inventory = inventory  # Assuming the table can directly handle inventory object
+            self.item_table.update_table(inventory)
+        else:
+            inventory = self.shop_manager.get_shop_inventory(shop_name)
+            self.material_table.shop_inventory = inventory  # Assuming the table can directly handle inventory object
+            self.material_table.update_table(inventory)
+
+        # Update the user interface to reflect the change
         self.load_inventory(shop_name)
 
     def on_add_item(self):
@@ -103,11 +118,11 @@ class InventoryWindow(QMainWindow):
             self.add_item_button.setText("Add New Item")
         self.load_inventory(self.shop_name)
 
-    def update_item_table(self, inventory):
+    def update_item_table(self, inventory: ShopInventory):
         self.item_table.update_table(inventory)
         self.item_table.resizeColumnsToContents()
 
-    def update_material_table(self, inventory):
+    def update_material_table(self, inventory: ShopInventory):
         self.material_table.update_table(inventory)
         self.material_table.resizeColumnsToContents()
 
