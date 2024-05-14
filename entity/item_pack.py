@@ -1,7 +1,7 @@
 from datetime import datetime
 
 class ItemPack:
-    def __init__(self, item_type,  name, price, tt, since_date, sold_price=None, sold_date=None):
+    def __init__(self, item_type,  name, price, tt, since_date, sold_price= 0.00, sold_date= "1900-01-01"):
         self.item_type = item_type
         self.name = name
         self.price = price

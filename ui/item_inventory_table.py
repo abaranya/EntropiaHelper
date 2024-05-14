@@ -103,7 +103,7 @@ class ItemInventoryTable(QTableWidget):
 
     def commit_price_change(self, row):
         package = self.item(row, 0).text()
-        new_price = self.cellWidget(row, 6).value()
+        new_price = self.cellWidget(row, 6).value() if self.cellWidget(row, 6) else None
         try:
             self.shop_inventory.update_field_value("items", package, "sold_price", new_price)
         except Exception as e:
@@ -111,7 +111,7 @@ class ItemInventoryTable(QTableWidget):
 
     def commit_date_change(self, row):
         package = self.item(row, 0).text()
-        new_date = self.cellWidget(row, 7).date().toString("yyyy-MM-dd")
+        new_date = self.cellWidget(row, 7).date().toString("yyyy-MM-dd") if self.cellWidget(row, 7) else None
         try:
             self.shop_inventory.update_field_value("items", package, "sold_date", new_date)
         except Exception as e:

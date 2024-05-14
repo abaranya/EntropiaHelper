@@ -3,8 +3,8 @@ from datetime import datetime
 
 
 class MaterialPack:
-    def __init__(self, item_type: str, name: str, quantity: int, price: float, markup: float, since_date: str, sold_price: float = None,
-                 sold_date: str = None):
+    def __init__(self, item_type: str, name: str, quantity: int, price: float, markup: float, since_date: str, sold_price: float = 0.00,
+                 sold_date: str = "1900-01-01"):
         self.item_type = item_type
         self.name = name
         self.quantity = quantity
