@@ -5,16 +5,35 @@ from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QDouble
 
 from entity.item_pack import ItemPack
 from entity.shop_inventory import ShopInventory
+from utils.formatter import Formatter
+
+COLUMNS = 9
+SOLD_DATE_COLUMN = COLUMNS - 1
+SOLD_PRICE_COLUMN = COLUMNS - 2
 
 
 class ItemInventoryTable(QTableWidget):
     def __init__(self, parent=None, shop_inventory=None):
         super(ItemInventoryTable, self).__init__(parent)
+        self.formatter = Formatter()
         self.shop_inventory = shop_inventory
-        self.setColumnCount(8)
+        self.setColumnCount(COLUMNS)
 
-        self.verticalHeader().setDefaultSectionSize(10)
-        self.setHorizontalHeaderLabels(["Pack", "Type", "Name", "Price", "TT", "Since Date", "Sold Price", "Sold Date"])
+        self.setHorizontalHeaderLabels(
+            ["Pack", "Type", "Name", "Price", "TT", "Markup", "Since Date", "Sold Price", "Sold Date"])
+
+        self.formatter.setLayout([
+            self.formatter.format_text,
+            self.formatter.format_text,
+            self.formatter.format_text,
+            self.formatter.format_currency,
+            self.formatter.format_currency,
+            self.formatter.format_currency,
+            self.formatter.format_date,
+            self.formatter.format_currency,
+            self.formatter.format_date
+        ])
+
         self.verticalHeader().setDefaultSectionSize(10)  # Standard row height
         self.horizontalHeader().setSectionResizeMode(
             QHeaderView.ResizeMode.Stretch)  # Stretch columns to fill the table width
@@ -23,7 +42,8 @@ class ItemInventoryTable(QTableWidget):
 
         # Assign tooltips only after headers have been confirmed set
         for i, title in enumerate(
-                ["Pack", "Item Type", "Name of the item", "Price of the item", "TT", "Selling Since", "Sold Price", "Sold Date"]):
+                ["Pack", "Item Type", "Name of the item", "Price of the item", "TT", "Markup", "Selling Since",
+                 "Sold Price", "Sold Date"]):
             self.horizontalHeaderItem(i).setToolTip(title)
 
         self.setSortingEnabled(True)
@@ -44,12 +64,12 @@ class ItemInventoryTable(QTableWidget):
 
         # Initialize other non-widget columns
         for col, value in enumerate(item.field_list(), start=1):
-            if col not in [6, 7]:  # Exclude columns that will use widgets
-                self.setItem(row_count, col, QTableWidgetItem(str(value)))
+            if col not in [SOLD_DATE_COLUMN, SOLD_PRICE_COLUMN]:  # Exclude columns that will use widgets
+                self.setItem(row_count, col, QTableWidgetItem(self.formatter.format(value, col)))
 
         # Set widgets with centering adjustment
-        self.setCellWidget(row_count, 6, self.create_double_spin_box(item.sold_price))
-        self.setCellWidget(row_count, 7, self.create_date_edit(item.sold_date))
+        self.setCellWidget(row_count, SOLD_PRICE_COLUMN, self.create_double_spin_box(item.sold_price))
+        self.setCellWidget(row_count, SOLD_DATE_COLUMN, self.create_date_edit(item.sold_date))
 
         self.connect_row_signals()
 
@@ -61,18 +81,18 @@ class ItemInventoryTable(QTableWidget):
     def setup_editable_cells(self):
         for row in range(self.rowCount()):
             # Check if the widget already exists
-            price_editor = self.cellWidget(row, 6)
-            date_editor = self.cellWidget(row, 7)
+            price_editor = self.cellWidget(row, SOLD_PRICE_COLUMN)
+            date_editor = self.cellWidget(row, SOLD_DATE_COLUMN)
 
             # Only create and set if not already present
             if not price_editor:
                 price_editor = self.create_double_spin_box()
-                self.setCellWidget(row, 6, price_editor)
+                self.setCellWidget(row, SOLD_PRICE_COLUMN, price_editor)
                 price_editor.editingFinished.connect(partial(self.commit_price_change, row))
 
             if not date_editor:
                 date_editor = self.create_date_edit()
-                self.setCellWidget(row, 7, date_editor)
+                self.setCellWidget(row, SOLD_DATE_COLUMN, date_editor)
                 date_editor.editingFinished.connect(partial(self.commit_date_change, row))
 
     def update_table(self, inventory: ShopInventory):
@@ -86,24 +106,24 @@ class ItemInventoryTable(QTableWidget):
 
     def create_double_spin_box(self, initial_value=None):
         editor = QDoubleSpinBox()
-        editor.setValue(0.0 if initial_value is None else initial_value)
         editor.setDecimals(2)
-        editor.setMaximum(99999999.99)
+        editor.setMaximum(999999999999.99)  # Increased max value to ensure it's not a limiting factor
         editor.setPrefix("PED ")
         editor.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        editor.setValue(initial_value if initial_value is not None else 0.0)
         return editor
 
     def create_date_edit(self, initial_date=None):
         editor = QDateEdit()
-        editor.setDate(QDate.currentDate() if initial_date is None else initial_date)
         editor.setCalendarPopup(True)
         editor.setDisplayFormat("yyyy-MM-dd")
         editor.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        editor.setDate(QDate.currentDate() if initial_date is None else initial_date)
         return editor
 
     def commit_price_change(self, row):
         package = self.item(row, 0).text()
-        new_price = self.cellWidget(row, 6).value() if self.cellWidget(row, 6) else None
+        new_price = self.cellWidget(row, SOLD_PRICE_COLUMN).value() if self.cellWidget(row, SOLD_PRICE_COLUMN) else None
         try:
             self.shop_inventory.update_field_value("items", package, "sold_price", new_price)
         except Exception as e:
@@ -111,7 +131,8 @@ class ItemInventoryTable(QTableWidget):
 
     def commit_date_change(self, row):
         package = self.item(row, 0).text()
-        new_date = self.cellWidget(row, 7).date().toString("yyyy-MM-dd") if self.cellWidget(row, 7) else None
+        new_date = self.cellWidget(row, SOLD_DATE_COLUMN).date().toString("yyyy-MM-dd") \
+            if self.cellWidget(row, SOLD_DATE_COLUMN) else None
         try:
             self.shop_inventory.update_field_value("items", package, "sold_date", new_date)
         except Exception as e:
@@ -121,8 +142,8 @@ class ItemInventoryTable(QTableWidget):
         for row in range(self.rowCount()):
             # Retrieve the widgets from the cell widgets if they are containers
             # or directly if they are not wrapped in another widget.
-            price_editor = self.cellWidget(row, 6)  # Assuming column 6 is the Sold Price
-            date_editor = self.cellWidget(row, 7)  # Assuming column 7 is the Sold Date
+            price_editor = self.cellWidget(row, SOLD_PRICE_COLUMN)  # Assuming column 6 is the Sold Price
+            date_editor = self.cellWidget(row, SOLD_DATE_COLUMN)  # Assuming column 7 is the Sold Date
 
             # If the editors are placed directly without container, retrieve directly
             if isinstance(price_editor, QDoubleSpinBox):
@@ -144,3 +165,4 @@ class ItemInventoryTable(QTableWidget):
                     pass
                 # Connect the editingFinished signal to the commit_date_change method
                 date_editor.editingFinished.connect(partial(self.commit_date_change, row))
+

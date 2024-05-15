@@ -99,10 +99,10 @@ class AddMaterialDialog(QDialog):
             item = MaterialPack(
                 item_type=self.item_type.currentText(),
                 name=self.name.text(),
-                quantity= self.quantity.value(),
-                price= self.price.value(),
-                markup= self.markup.value(),
-                since_date= self.since_date.date().toString("yyyy-MM-dd")
+                quantity=self.quantity.value(),
+                price=self.price.value(),
+                markup=self.markup.value(),
+                since_date=self.since_date.date().toString("yyyy-MM-dd")
             )
             package = self.package_name.text()
             self.accept()  # Closes the dialog if no error

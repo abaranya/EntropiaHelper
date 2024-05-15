@@ -12,9 +12,8 @@ class AddItemDialog(QDialog):
         super().__init__(parent)
         self.item_manager = ItemManager()
         self.setWindowTitle("Add New Item")
+        self.updating = False
         self.layout = QFormLayout(self)
-
-
 
         # ComboBox for item type selection
         self.package_name = QLineEdit(self)
@@ -33,9 +32,18 @@ class AddItemDialog(QDialog):
         # SpinBoxes for currency fields
         self.price = QDoubleSpinBox(self)
         self.setup_currency_spinbox(self.price)
+        self.price.valueChanged.connect(self.update_markup_based_on_price)
+
+        # Add a SpinBox for the markup percentage
+        self.markup = QDoubleSpinBox(self)
+        self.markup.setRange(100, 100000)  # Assuming markup ranges from 100% to 1000%
+        self.markup.setSuffix("%")  # Add a suffix to denote percentage
+        self.markup.setSingleStep(0.1)  # Allow fine control over the percentage
+        self.markup.valueChanged.connect(self.update_price_based_on_markup)
 
         self.tt = QDoubleSpinBox(self)
         self.setup_currency_spinbox(self.tt)
+        self.tt.valueChanged.connect(self.update_price_based_on_markup)
 
         # DateEdit widgets for date fields
         self.since_date = QDateEdit(self)
@@ -53,6 +61,7 @@ class AddItemDialog(QDialog):
         self.layout.addRow("Item Type", self.item_type)
         self.layout.addRow("Name", self.name_layout)
         self.layout.addRow("Price", self.price)
+        self.layout.addRow("Markup", self.markup)
         self.layout.addRow("TT", self.tt)
         self.layout.addRow("Since Date", self.since_date)
         self.layout.addRow("Sold Price", self.sold_price)
@@ -80,17 +89,18 @@ class AddItemDialog(QDialog):
                 self.tt.setValue(self.item_manager.get_item(selected_name).value)
 
     def submit_item(self):
+        if not self.validate_inputs():
+            QMessageBox.critical(self, "Input Error", "Please check the entered values.")
+            return  # Keeps the dialog open for correction
         try:
-            item = ItemPack(self.item_type.currentText(), self.name.text(), self.price.value(), self.tt.value(), self.since_date.date().toString("yyyy-MM-dd"))
-            # item_details = {
-            #     "item_type": self.item_type.currentText(),
-            #     "name": self.name.text(),
-            #     "price": self.price.value(),
-            #     "tt": self.tt.value(),
-            #     "since_date": self.since_date.date().toString("yyyy-MM-dd"),
-            #     "sold_price": self.sold_price.value(),
-            #     "sold_date": self.sold_date.date().toString("yyyy-MM-dd")
-            # }
+            item = ItemPack(
+                item_type=self.item_type.currentText(),
+                name=self.name.text(),
+                price=self.price.value(),
+                markup=self.markup.value(),
+                tt=self.tt.value(),
+                since_date=self.since_date.date().toString("yyyy-MM-dd")
+            )
             package = self.package_name.text()
             self.accept()  # Closes the dialog if no error
         except ValueError:
@@ -98,3 +108,41 @@ class AddItemDialog(QDialog):
             return  # Keeps the dialog open for correction
 
         return package, item  # Optionally process this further or adjust behavior based on needs
+
+    def validate_inputs(self):
+        return all([
+            self.package_name.text().strip(),
+            self.name.text().strip(),
+            self.item_type.currentText().strip(),
+            self.price.value() > 0,  # Ensure price is more than zero
+            self.tt.value() > 0,  # Ensure quantity is more than zero
+            self.markup.value() >= 100  # Ensure markup is at least 100%
+        ])
+
+    def update_markup_based_on_price(self):
+        if self.updating:
+            return  # Avoid recursion or unwanted updates
+
+        try:
+            self.updating = True
+            actual_price = self.price.value()
+            actual_tt = self.tt.value()
+
+            if actual_price * actual_tt != 0:
+                self.markup.setValue((actual_price / actual_tt) *100)
+
+        finally:
+            self.updating = False
+
+
+    def update_price_based_on_markup(self):
+        if self.updating:
+            return  # Avoid recursion or unwanted updates
+        try:
+            self.updating = True
+            actual_tt = self.tt.value()
+            actual_markup = self.markup.value() / 100
+            if actual_tt * actual_markup != 0:
+                self.price.setValue(actual_tt * actual_markup)
+        finally:
+            self.updating = False
