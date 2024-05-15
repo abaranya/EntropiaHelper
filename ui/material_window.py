@@ -51,7 +51,7 @@ class MaterialWindow(QMainWindow):
         category_label = QLabel("Category:")
         self.category_combo = QComboBox()
         self.category_combo.addItems(
-            ["Ores", "Enmatter", "Residue", "Robot Parts", "Animal Parts", "Components", "Texture Extractor"])
+            ["Ores", "Enmatter", "Residue", "Robot Parts", "Animal Parts", "Components", "Texture Extractor", "Beauty"])
         layout.addWidget(category_label)
         layout.addWidget(self.category_combo)
 
