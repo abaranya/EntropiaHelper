@@ -34,7 +34,7 @@ class MaterialWindow(QMainWindow):
         tt_label = QLabel("TT Value (PED):")
         self.tt_edit = QDoubleSpinBox()
         self.tt_edit.setSuffix(" PED")
-        self.tt_edit.setDecimals(2)
+        self.tt_edit.setDecimals(4)
         layout.addWidget(tt_label)
         layout.addWidget(self.tt_edit)
 
@@ -43,14 +43,15 @@ class MaterialWindow(QMainWindow):
         self.markup_spinbox = QDoubleSpinBox()
         self.markup_spinbox.setSuffix("%")
         self.markup_spinbox.setDecimals(2)  # Set to allow four decimal places
-        self.markup_spinbox.setMaximum(9999999.99)
+        self.markup_spinbox.setMaximum(999999999.99)
         layout.addWidget(markup_label)
         layout.addWidget(self.markup_spinbox)
 
         # Category
         category_label = QLabel("Category:")
         self.category_combo = QComboBox()
-        self.category_combo.addItems(["Ores", "Enmatter", "Residue", "Robot Parts", "Animal Parts", "Components"])
+        self.category_combo.addItems(
+            ["Ores", "Enmatter", "Residue", "Robot Parts", "Animal Parts", "Components", "Texture Extractor"])
         layout.addWidget(category_label)
         layout.addWidget(self.category_combo)
 
@@ -98,7 +99,7 @@ class MaterialWindow(QMainWindow):
 
     def search_material(self):
         search_text = self.name_edit.text()  # Get the search text from the search box
-        matching_names = self.material_manager.search_materials(search_text)
+        matching_names = self.material_manager.search(search_text)
 
         if matching_names:
             if len(matching_names) == 1:
