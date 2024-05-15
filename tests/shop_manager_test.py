@@ -19,6 +19,7 @@ class ShopManagerTest(unittest.TestCase):
                                                     'Pyrite Ingot',
                                                     18,
                                                     16.13,
+                                                    100.0,
                                                     '2024-03-10',
                                                     16.13,
                                                     '2024-03-22')
@@ -28,10 +29,16 @@ class ShopManagerTest(unittest.TestCase):
                                                     'Garcen Lubricant',
                                                     216,
                                                     58.57,
+                                                    100.0,
                                                     '2024-03-10')
                                        )
         self.shop_manager.add_item('Shop 3', 'Sollomate Opalo 1',
-                                   ItemPack('Weapons', 'Sollomate Opalo', 2.13, 1.13, '2024-03-10'))
+                                   ItemPack('Weapons',
+                                            'Sollomate Opalo',
+                                            2.13,
+                                            1.13,
+                                            100.0,
+                                            '2024-03-10'))
 
     def test_load_save_shop_inventory(self):
         # Test loading the shop inventory from file
