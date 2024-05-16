@@ -481,6 +481,326 @@
         "since_date": "2024-03-10",
         "sold_price": 43.06,
         "sold_date": "2024-04-07"
+      },
+      "BASI182034891431": {
+        "item_type": "Texture Extractor",
+        "name": "Basic Stone Extractor",
+        "quantity": 1856,
+        "price": 26.75,
+        "markup": 144.13,
+        "since_date": "2024-03-10",
+        "sold_price": 26.56,
+        "sold_date": "2024-04-17"
+      },
+      "RATI186988963452": {
+        "item_type": "Components",
+        "name": "Rationalizer Component",
+        "quantity": 180,
+        "price": 6.42,
+        "markup": 118.89,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "HAIR686940685112": {
+        "item_type": "Beauty",
+        "name": "Hair Spray",
+        "quantity": 78,
+        "price": 7.25,
+        "markup": 154.91,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2013-01-01"
+      },
+      "SURF911920169879": {
+        "item_type": "Components",
+        "name": "Surface Hardener Component",
+        "quantity": 300,
+        "price": 7.02,
+        "markup": 117.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "HAIR35010074622": {
+        "item_type": "Beauty",
+        "name": "Hair Gel",
+        "quantity": 68,
+        "price": 10.68,
+        "markup": 120.81,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROUG603047770202": {
+        "item_type": "Beauty",
+        "name": "Rouge (Pink-Orange)",
+        "quantity": 3,
+        "price": 27.29,
+        "markup": 181.93,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "MOLI182876528040": {
+        "item_type": "Animal Parts",
+        "name": "Molisk Enamel Buttons",
+        "quantity": 136,
+        "price": 5.1,
+        "markup": 125.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "INFE948495880793": {
+        "item_type": "Texture Extractor",
+        "name": "Inferior Cloth Extractor",
+        "quantity": 2015,
+        "price": 23.03,
+        "markup": 114.29,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM102076293464": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 4000,
+        "price": 204.09,
+        "markup": 102.05,
+        "since_date": "2024-03-10",
+        "sold_price": 204.0,
+        "sold_date": "2024-04-09"
+      },
+      "ANIM258343053958": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM712139963502": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM976108715417": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM822937466536": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO962396650608": {
+        "item_type": "Robot Parts",
+        "name": "Robot Weapon Sight",
+        "quantity": 41,
+        "price": 9.63,
+        "markup": 111.85,
+        "since_date": "2024-03-10",
+        "sold_price": 9.61,
+        "sold_date": "2024-04-08"
+      },
+      "SOCK480976493901": {
+        "item_type": "Components",
+        "name": "Socket 1 Component",
+        "quantity": 119,
+        "price": 12.92,
+        "markup": 108.57,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK159091780248": {
+        "item_type": "Components",
+        "name": "Socket 2 Component",
+        "quantity": 132,
+        "price": 14.22,
+        "markup": 107.73,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK874098793713": {
+        "item_type": "Components",
+        "name": "Socket 3 Component",
+        "quantity": 131,
+        "price": 14.12,
+        "markup": 107.79,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK324165257082": {
+        "item_type": "Components",
+        "name": "Socket 4 Component",
+        "quantity": 127,
+        "price": 13.7,
+        "markup": 107.87,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK313837876468": {
+        "item_type": "Components",
+        "name": "Socket 5 Component",
+        "quantity": 19,
+        "price": 2.9,
+        "markup": 152.63,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK854306699089": {
+        "item_type": "Components",
+        "name": "Socket 6 Component",
+        "quantity": 30,
+        "price": 4.02,
+        "markup": 134.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK659573008435": {
+        "item_type": "Components",
+        "name": "Socket 7 Component",
+        "quantity": 19,
+        "price": 2.92,
+        "markup": 153.68,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK461994125466": {
+        "item_type": "Components",
+        "name": "Socket 8 Component",
+        "quantity": 14,
+        "price": 2.42,
+        "markup": 172.86,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SHRA376575738695": {
+        "item_type": "Residue",
+        "name": "Shrapnel",
+        "quantity": 1000000,
+        "price": 101.02,
+        "markup": 101.02,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM489239678600": {
+        "item_type": "Residue",
+        "name": "Animal Oil Residue",
+        "quantity": 13742,
+        "price": 138.44,
+        "markup": 100.74,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "META957327482189": {
+        "item_type": "Residue",
+        "name": "Metal Residue",
+        "quantity": 11869,
+        "price": 121.25,
+        "markup": 102.16,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "FOCU301047129734": {
+        "item_type": "Components",
+        "name": "Focus Lens Component",
+        "quantity": 35,
+        "price": 8.0,
+        "markup": 114.29,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM163211723098": {
+        "item_type": "Animal Parts",
+        "name": "Animal Muscle Oil",
+        "quantity": 1032,
+        "price": 31.98,
+        "markup": 103.29,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM148943144415": {
+        "item_type": "Animal Parts",
+        "name": "Animal Thyroid Oil",
+        "quantity": 744,
+        "price": 76.44,
+        "markup": 102.74,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM782720249689": {
+        "item_type": "Animal Parts",
+        "name": "Animal Thyroid Oil",
+        "quantity": 500,
+        "price": 51.43,
+        "markup": 102.86,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO192423011646": {
+        "item_type": "Robot Parts",
+        "name": "Robot Low-Loss Link Cable",
+        "quantity": 1325,
+        "price": 32.82,
+        "markup": 103.21,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO303459425050": {
+        "item_type": "Robot Parts",
+        "name": "Robot Filter",
+        "quantity": 904,
+        "price": 33.56,
+        "markup": 103.12,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO128276277298": {
+        "item_type": "Robot Parts",
+        "name": "Robot Weapon Grip",
+        "quantity": 874,
+        "price": 53.86,
+        "markup": 106.25,
+        "since_date": "2024-03-16",
+        "sold_price": 53.79,
+        "sold_date": "2024-04-07"
       }
     }
   },
