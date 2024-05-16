@@ -1,3 +1,4 @@
+import uuid
 from PyQt6.QtWidgets import QDialog, QFormLayout, QPushButton, QComboBox, QDateEdit, QMessageBox, QDoubleSpinBox, \
     QLineEdit, QHBoxLayout, QSpinBox
 from PyQt6.QtCore import QDate
@@ -12,6 +13,7 @@ class AddMaterialDialog(QDialog):
         super().__init__(parent)
         self.material = None
         self.item_manager = MaterialManager()
+        self.updating = False
         self.setWindowTitle("Add New Material Pack")
         self.layout = QFormLayout(self)
 
@@ -57,7 +59,7 @@ class AddMaterialDialog(QDialog):
 
         self.sold_date = QDateEdit(self)
         self.sold_date.setCalendarPopup(True)
-        self.sold_date.setDate(QDate.currentDate())
+        self.sold_date.setDate(QDate(2024, 1, 1))
 
         self.layout.addRow("Package Name", self.package_name)
         self.layout.addRow("Item Type", self.item_type)
@@ -102,7 +104,10 @@ class AddMaterialDialog(QDialog):
                 quantity=self.quantity.value(),
                 price=self.price.value(),
                 markup=self.markup.value(),
-                since_date=self.since_date.date().toString("yyyy-MM-dd")
+                since_date=self.since_date.date().toString("yyyy-MM-dd"),
+                sold_price=self.sold_price.value() if self.sold_price.value() > 0 else 0.0,
+                sold_date=self.sold_date.date().toString(
+                    "yyyy-MM-dd") if self.sold_date.date().isValid() else "1900-01-01"
             )
             package = self.package_name.text()
             self.accept()  # Closes the dialog if no error
@@ -130,8 +135,17 @@ class AddMaterialDialog(QDialog):
         self.markup.setValue(material.markup_value)
         self.price.setValue(material.tt_value)
 
+        # Automatically generate package name if not provided
+        if not self.package_name.text().strip():  # Check if package name field is empty
+            prefix = material.name[:4].upper()  # Use the first four letters of the name
+            unique_number = uuid.uuid4().int % (10 ** 12)  # Generate an 8-digit number
+            self.package_name.setText(f"{prefix}{unique_number:08d}")  # Set the package name
+
+
     def update_calculations(self):
-        # Prevent recursive updates
+        if self.updating:
+            return  # Avoid recursion or unwanted updates
+
         try:
             self.updating = True
 

@@ -107,19 +107,19 @@ class MaterialInventoryTable(QTableWidget):
 
     def create_double_spin_box(self, initial_value=None):
         editor = QDoubleSpinBox()
-        editor.setValue(0.0 if initial_value is None else initial_value)
         editor.setDecimals(2)
         editor.setMaximum(99999999.99)
         editor.setPrefix("PED ")
         editor.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        editor.setValue(0.0 if initial_value is None else initial_value)
         return editor
 
     def create_date_edit(self, initial_date=None):
         editor = QDateEdit()
-        editor.setDate(QDate.currentDate() if initial_date is None else initial_date)
         editor.setCalendarPopup(True)
         editor.setDisplayFormat("yyyy-MM-dd")
         editor.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        editor.setDate(QDate.currentDate() if initial_date is None else initial_date)
         return editor
 
     def commit_price_change(self, row):

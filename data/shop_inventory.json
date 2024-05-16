@@ -1,0 +1,421 @@
+{
+  "Shop 2": {
+    "items": {},
+    "materials": {
+      "Pyrite1": {
+        "item_type": "Ores",
+        "name": "Pyrite Ingot",
+        "quantity": 18,
+        "price": 16.13,
+        "markup": 149.35,
+        "since_date": "2024-03-10",
+        "sold_price": 16.01,
+        "sold_date": "2024-03-22"
+      },
+      "Garcen1": {
+        "item_type": "Enmatter",
+        "name": "Garcen Lubricant",
+        "quantity": 216,
+        "price": 58.57,
+        "markup": 135.58,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Alternative1": {
+        "item_type": "Ores",
+        "name": "Alternative Ingot",
+        "quantity": 3000,
+        "price": 66.22,
+        "markup": 100.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Alternative2": {
+        "item_type": "Ores",
+        "name": "Alternative Ingot",
+        "quantity": 2000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-07"
+      },
+      "Belkar1": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-03"
+      },
+      "Belkar2": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-03"
+      },
+      "Belkar3": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-03"
+      },
+      "Belkar4": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1651,
+        "price": 110.33,
+        "markup": 111.38,
+        "since_date": "2024-03-10",
+        "sold_price": 110.06,
+        "sold_date": "2024-04-03"
+      },
+      "Fert1": {
+        "item_type": "Enmatter",
+        "name": "Energized Fertilizer",
+        "quantity": 14,
+        "price": 7.6,
+        "markup": 115.5,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Oil1": {
+        "item_type": "Enmatter",
+        "name": "Oil",
+        "quantity": 2000,
+        "price": 41.0,
+        "markup": 102.5,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Oil2": {
+        "item_type": "Enmatter",
+        "name": "Oil",
+        "quantity": 1965,
+        "price": 40.32,
+        "markup": 102.6,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Typo1": {
+        "item_type": "Enmatter",
+        "name": "Typonolic Gas",
+        "quantity": 46,
+        "price": 14.8,
+        "markup": 1072.46,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "ALIC103023768143": {
+        "item_type": "Enmatter",
+        "name": "Alicenies Gel",
+        "quantity": 218,
+        "price": 23.02,
+        "markup": 105.6,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "MAGE959803858493": {
+        "item_type": "Enmatter",
+        "name": "Magerian Spray",
+        "quantity": 7,
+        "price": 14.8,
+        "markup": 422.86,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "LYST191396384945": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 4000,
+        "price": 122.56,
+        "markup": 102.13,
+        "since_date": "2024-03-10",
+        "sold_price": 122.5,
+        "sold_date": "2024-04-09"
+      },
+      "LYST303250712526": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 4000,
+        "price": 122.56,
+        "markup": 102.13,
+        "since_date": "2024-03-10",
+        "sold_price": 122.5,
+        "sold_date": "2024-04-09"
+      },
+      "LYST134036784052": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 2000,
+        "price": 61.53,
+        "markup": 102.55,
+        "since_date": "2024-03-10",
+        "sold_price": 61.5,
+        "sold_date": "2024-04-17"
+      },
+      "LYST741569470748": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 2000,
+        "price": 61.53,
+        "markup": 102.55,
+        "since_date": "2024-03-10",
+        "sold_price": 61.5,
+        "sold_date": "2024-04-17"
+      },
+      "LYST523603649711": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 2000,
+        "price": 61.53,
+        "markup": 102.55,
+        "since_date": "2024-03-10",
+        "sold_price": 61.5,
+        "sold_date": "2024-04-17"
+      },
+      "LYST761546220168": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 1001,
+        "price": 30.05,
+        "markup": 100.07,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IRON699245779054": {
+        "item_type": "Ores",
+        "name": "Iron Ingot ",
+        "quantity": 146,
+        "price": 58.02,
+        "markup": 101.9,
+        "since_date": "2024-03-10",
+        "sold_price": 55.0,
+        "sold_date": "2024-04-09"
+      },
+      "IRON656495710078": {
+        "item_type": "Ores",
+        "name": "Iron Ingot ",
+        "quantity": 145,
+        "price": 57.67,
+        "markup": 101.98,
+        "since_date": "2024-03-10",
+        "sold_price": 57.65,
+        "sold_date": "2024-04-09"
+      },
+      "COBA112626738630": {
+        "item_type": "Ores",
+        "name": "Cobalt Ingot ",
+        "quantity": 40,
+        "price": 26.04,
+        "markup": 108.5,
+        "since_date": "2024-03-10",
+        "sold_price": 26.0,
+        "sold_date": "2024-04-07"
+      },
+      "COBA600335459765": {
+        "item_type": "Ores",
+        "name": "Cobalt Ingot ",
+        "quantity": 40,
+        "price": 26.04,
+        "markup": 108.5,
+        "since_date": "2024-03-10",
+        "sold_price": 26.0,
+        "sold_date": "2024-04-07"
+      },
+      "ZINC699537867443": {
+        "item_type": "Ores",
+        "name": "Zinc Ingot",
+        "quantity": 186,
+        "price": 57.33,
+        "markup": 102.74,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "CALD819498777243": {
+        "item_type": "Ores",
+        "name": "Caldorite Ingot",
+        "quantity": 47,
+        "price": 24.99,
+        "markup": 104.26,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ADOM106845625618": {
+        "item_type": "Ores",
+        "name": "Adomasite Ingot",
+        "quantity": 6,
+        "price": 13.66,
+        "markup": 126.48,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "OSPR146300473369": {
+        "item_type": "Ores",
+        "name": "Ospra Ingot",
+        "quantity": 1000,
+        "price": 63.07,
+        "markup": 105.12,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "OSPR777692083221": {
+        "item_type": "Ores",
+        "name": "Ospra Ingot",
+        "quantity": 1000,
+        "price": 63.07,
+        "markup": 105.12,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "OSPR511937500412": {
+        "item_type": "Ores",
+        "name": "Ospra Ingot",
+        "quantity": 640,
+        "price": 40.44,
+        "markup": 105.31,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "AZZU346743868080": {
+        "item_type": "Ores",
+        "name": "Azzurdite Ingot",
+        "quantity": 19,
+        "price": 69.93,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "NIKS822968851321": {
+        "item_type": "Ores",
+        "name": "Niksarium Ingot",
+        "quantity": 6,
+        "price": 12.72,
+        "markup": 108.72,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "GAZZ462906875560": {
+        "item_type": "Ores",
+        "name": "Gazzurdite Ingot",
+        "quantity": 47,
+        "price": 42.42,
+        "markup": 120.34,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "COPP928098291562": {
+        "item_type": "Ores",
+        "name": "Copper Ingot",
+        "quantity": 43,
+        "price": 21.67,
+        "markup": 105.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "CUMB638679253379": {
+        "item_type": "Ores",
+        "name": "Cumbriz Ingot",
+        "quantity": 66,
+        "price": 30.72,
+        "markup": 103.43,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "GANG191224607190": {
+        "item_type": "Ores",
+        "name": "Ganganite Ingot",
+        "quantity": 21,
+        "price": 8.58,
+        "markup": 113.49,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "GOLD703653504588": {
+        "item_type": "Ores",
+        "name": "Gold Ingot",
+        "quantity": 3,
+        "price": 10.0,
+        "markup": 111.11,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ARES262216222491": {
+        "item_type": "Enmatter",
+        "name": "Ares Powder",
+        "quantity": 25,
+        "price": 14.02,
+        "markup": 107.85,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "DURU213060653755": {
+        "item_type": "Ores",
+        "name": "Durulium Ingot",
+        "quantity": 4,
+        "price": 10.93,
+        "markup": 113.85,
+        "since_date": "2024-03-10",
+        "sold_price": 10.9,
+        "sold_date": "2024-03-18"
+      },
+      "MEGA287207946485": {
+        "item_type": "Ores",
+        "name": "Megan Ingot",
+        "quantity": 11,
+        "price": 6.96,
+        "markup": 117.17,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ERDO204318764053": {
+        "item_type": "Ores",
+        "name": "Erdorium Ingot",
+        "quantity": 8,
+        "price": 12.67,
+        "markup": 131.98,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      }
+    }
+  },
+  "Shop 3": {
+    "items": {},
+    "materials": {}
+  }
+}
