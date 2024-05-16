@@ -20,7 +20,7 @@ class AddMaterialDialog(QDialog):
         # ComboBox for item type selection
         self.package_name = QLineEdit(self)
         self.item_type = QComboBox(self)
-        self.item_type.addItems(["Ores", "Enmatter", "Robot Parts", "Animal Oils"])
+        self.item_type.addItems(["Ores", "Enmatter", "Residue", "Robot Parts", "Animal Parts", "Components", "Texture Extractor", "Beauty"])
 
         # name and search button
         self.name_layout = QHBoxLayout()

@@ -411,6 +411,76 @@
         "since_date": "2024-03-10",
         "sold_price": 0.0,
         "sold_date": "2024-01-01"
+      },
+      "SIMP391264815677": {
+        "item_type": "Components",
+        "name": "Simple 1 Conductors",
+        "quantity": 244,
+        "price": 77.81,
+        "markup": 106.3,
+        "since_date": "2024-03-10",
+        "sold_price": 77.7,
+        "sold_date": "2024-04-07"
+      },
+      "STAN633887257524": {
+        "item_type": "Components",
+        "name": "Standard Matrix",
+        "quantity": 87,
+        "price": 52.17,
+        "markup": 115.05,
+        "since_date": "2024-03-10",
+        "sold_price": 52.0,
+        "sold_date": "2024-04-17"
+      },
+      "HARD263717315677": {
+        "item_type": "Components",
+        "name": "Hardened Alloy",
+        "quantity": 1757,
+        "price": 93.58,
+        "markup": 128.03,
+        "since_date": "2024-03-10",
+        "sold_price": 93.58,
+        "sold_date": "2024-04-17"
+      },
+      "BASI943513798796": {
+        "item_type": "Components",
+        "name": "Basic Auxiliary Socket",
+        "quantity": 428,
+        "price": 6.84,
+        "markup": 117.51,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BASI169123237696": {
+        "item_type": "Components",
+        "name": "Basic Bearings",
+        "quantity": 678,
+        "price": 35.42,
+        "markup": 130.6,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BASI804020731266": {
+        "item_type": "Components",
+        "name": "Basic Sheet Metal",
+        "quantity": 875,
+        "price": 43.31,
+        "markup": 126.27,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "STAN638006085181": {
+        "item_type": "Components",
+        "name": "Standard Plate",
+        "quantity": 3013,
+        "price": 43.17,
+        "markup": 111.94,
+        "since_date": "2024-03-10",
+        "sold_price": 43.06,
+        "sold_date": "2024-04-07"
       }
     }
   },
