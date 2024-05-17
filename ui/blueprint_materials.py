@@ -58,7 +58,7 @@ class MaterialWidget(QWidget):
     def search_material(self, row):
         search_text = self.material_rows[row][1].text().strip()  # Get the search text from line edit
         if search_text:
-            matching_materials = self.material_manager.search_materials(search_text)
+            matching_materials = self.material_manager.search(search_text)
             if matching_materials:
                 self.show_material_selection_dialog(row, matching_materials)
             else:
