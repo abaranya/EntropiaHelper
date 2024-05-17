@@ -21,7 +21,7 @@ class Formatter:
     def format_date(self, date):
         if isinstance(date, datetime):
             return date.strftime(self.date_format)
-        return "1900-01-01"  # Return empty string if the date is not a datetime instance
+        return date  # Return empty string if the date is not a datetime instance
 
     def format_text(self, text):
         return str(text)  # Additional text formatting logic can go here

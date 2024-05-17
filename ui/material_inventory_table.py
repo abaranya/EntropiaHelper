@@ -7,6 +7,9 @@ from PyQt6.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QDouble
 from entity.material_pack import MaterialPack
 from entity.shop_inventory import ShopInventory
 
+COLUMNS = 9
+SOLD_DATE_COLUMN = COLUMNS - 1
+SOLD_PRICE_COLUMN = COLUMNS - 2
 
 class MaterialInventoryTable(QTableWidget):
     def __init__(self, parent=None, shop_inventory=None):
@@ -37,12 +40,12 @@ class MaterialInventoryTable(QTableWidget):
 
         # Initialize other non-widget columns
         for col, value in enumerate(material.field_list(), start=1):
-            if col not in [7, 8]:  # Exclude columns that will use widgets
+            if col not in [SOLD_PRICE_COLUMN, SOLD_DATE_COLUMN]:  # Exclude columns that will use widgets
                 self.setItem(row_count, col, QTableWidgetItem(str(value)))
 
         # Set widgets with centering adjustment
-        self.setCellWidget(row_count, 7, self.create_double_spin_box(material.sold_price))
-        self.setCellWidget(row_count, 8, self.create_date_edit(material.sold_date))
+        self.setCellWidget(row_count, SOLD_PRICE_COLUMN, self.create_double_spin_box(material.sold_price))
+        self.setCellWidget(row_count, SOLD_DATE_COLUMN, self.create_date_edit(material.sold_date))
 
         self.connect_row_signals()
 

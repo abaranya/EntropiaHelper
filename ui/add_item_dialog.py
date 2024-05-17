@@ -1,7 +1,10 @@
+import uuid
+
 from PyQt6.QtWidgets import QDialog, QFormLayout, QPushButton, QComboBox, QDateEdit, QMessageBox, QDoubleSpinBox, \
     QLineEdit, QHBoxLayout
 from PyQt6.QtCore import QDate
 
+from entity.item import Item
 from entity.item_pack import ItemPack
 from manager.item_manager import ItemManager
 from ui.search_dialog import SearchResultsDialog
@@ -17,10 +20,10 @@ class AddItemDialog(QDialog):
 
         # ComboBox for item type selection
         self.package_name = QLineEdit(self)
-        self.item_type = QComboBox(self)
-        self.item_type.addItems(["Armour", "Weapons", "Amplifiers"])
+        self.category = QComboBox(self)
+        self.category.addItems(self.item_manager.get_categories())
 
-        #name and search button
+        # name and search button
         self.name_layout = QHBoxLayout()
         self.name = QLineEdit(self)
         self.search_button = QPushButton("Search", self)
@@ -28,6 +31,7 @@ class AddItemDialog(QDialog):
         self.name_layout.addWidget(self.search_button)
 
         self.search_button.clicked.connect(self.open_search_dialog)
+        self.search_button.setDefault(True)
 
         # SpinBoxes for currency fields
         self.price = QDoubleSpinBox(self)
@@ -55,10 +59,10 @@ class AddItemDialog(QDialog):
 
         self.sold_date = QDateEdit(self)
         self.sold_date.setCalendarPopup(True)
-        self.sold_date.setDate(QDate.currentDate())
+        self.sold_date.setDate(QDate(2024, 1, 1))
 
         self.layout.addRow("Package Name", self.package_name)
-        self.layout.addRow("Item Type", self.item_type)
+        self.layout.addRow("Item Type", self.category)
         self.layout.addRow("Name", self.name_layout)
         self.layout.addRow("Price", self.price)
         self.layout.addRow("Markup", self.markup)
@@ -70,6 +74,8 @@ class AddItemDialog(QDialog):
         self.submit_button = QPushButton("Add Item", self)
         self.submit_button.clicked.connect(self.submit_item)
         self.layout.addRow(self.submit_button)
+
+        self.name.setFocus()
 
     def setup_currency_spinbox(self, spinbox):
         spinbox.setDecimals(2)
@@ -86,7 +92,10 @@ class AddItemDialog(QDialog):
             selected_name = dialog.get_selected_name()
             if selected_name:
                 self.name.setText(selected_name)
-                self.tt.setValue(self.item_manager.get_item(selected_name).value)
+                self.update_fields(self.item_manager.get_item(selected_name))
+                self.submit_button.setDefault(True)
+
+
 
     def submit_item(self):
         if not self.validate_inputs():
@@ -94,12 +103,15 @@ class AddItemDialog(QDialog):
             return  # Keeps the dialog open for correction
         try:
             item = ItemPack(
-                item_type=self.item_type.currentText(),
+                category=self.category.currentText(),
                 name=self.name.text(),
                 price=self.price.value(),
                 markup=self.markup.value(),
                 tt=self.tt.value(),
-                since_date=self.since_date.date().toString("yyyy-MM-dd")
+                since_date=self.since_date.date().toString("yyyy-MM-dd"),
+                sold_price=self.sold_price.value() if self.sold_price.value() > 0 else 0.0,
+                sold_date=self.sold_date.date().toString(
+                    "yyyy-MM-dd") if self.sold_date.date().isValid() else "2024-01-01"
             )
             package = self.package_name.text()
             self.accept()  # Closes the dialog if no error
@@ -113,7 +125,7 @@ class AddItemDialog(QDialog):
         return all([
             self.package_name.text().strip(),
             self.name.text().strip(),
-            self.item_type.currentText().strip(),
+            self.category.currentText().strip(),
             self.price.value() > 0,  # Ensure price is more than zero
             self.tt.value() > 0,  # Ensure quantity is more than zero
             self.markup.value() >= 100  # Ensure markup is at least 100%
@@ -129,11 +141,10 @@ class AddItemDialog(QDialog):
             actual_tt = self.tt.value()
 
             if actual_price * actual_tt != 0:
-                self.markup.setValue((actual_price / actual_tt) *100)
+                self.markup.setValue((actual_price / actual_tt) * 100)
 
         finally:
             self.updating = False
-
 
     def update_price_based_on_markup(self):
         if self.updating:
@@ -146,3 +157,18 @@ class AddItemDialog(QDialog):
                 self.price.setValue(actual_tt * actual_markup)
         finally:
             self.updating = False
+
+    def update_fields(self, item: Item):
+        # Update the fields with the item details
+        if item is not None:
+            self.name.setText(item.name)
+            self.category.setCurrentText(item.category)
+            self.markup.setValue(item.markup)
+            self.tt.setValue(item.value)
+            self.price.setValue(item.value*item.markup/100)
+
+            # Automatically generate package name if not provided
+            if not self.package_name.text().strip():  # Check if package name field is empty
+                prefix = item.name.replace(" ", "")[:6]  # Use the first four letters of the name
+                unique_number = uuid.uuid4().int % (10 ** 12)  # Generate an 8-digit number
+                self.package_name.setText(f"{prefix}{unique_number:06d}")  # Set the package name

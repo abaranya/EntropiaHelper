@@ -4,9 +4,9 @@ from utils.formatter import Formatter
 
 
 class ItemPack:
-    def __init__(self, item_type,  name, price, tt, markup,since_date, sold_price= 0.00, sold_date= "1900-01-01"):
+    def __init__(self, category,  name, price, tt, markup,since_date, sold_price= 0.00, sold_date= "1900-01-01"):
         self.formatter = Formatter()
-        self.item_type = item_type
+        self.category = category
         self.name = name
         self.price = price
         self.tt = tt
@@ -17,7 +17,7 @@ class ItemPack:
 
     def to_dict(self):
         return {
-            "item_type": self.item_type,
+            "category": self.category,
             "name": self.name,
             "price": self.price,
             "tt": self.tt,
@@ -30,7 +30,7 @@ class ItemPack:
     @classmethod
     def from_dict(cls, json_data):
         return cls(
-            item_type=json_data['item_type'],
+            category=json_data['category'],
             name=json_data['name'],
             price=float(json_data.get('price', 0.0)),
             tt=float(json_data.get('tt', 0.0)),
@@ -43,7 +43,7 @@ class ItemPack:
     def field_list(self):
         """Returns a list of fields representing the item's data."""
         return [
-            self.item_type,
+            self.category,
             self.name,
             self.formatter.format_currency(self.price),
             self.formatter.format_currency(self.tt),

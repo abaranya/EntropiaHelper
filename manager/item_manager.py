@@ -76,3 +76,6 @@ class ItemManager:
             print(f"Item '{name}' deleted successfully.")
         else:
             print(f"Item '{name}' does not exist in the item manager.")
+
+    def get_categories(self):
+        return self.categories
