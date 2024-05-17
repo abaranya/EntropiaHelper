@@ -1,0 +1,1172 @@
+{
+  "Shop 2": {
+    "items": {},
+    "materials": {
+      "Pyrite1": {
+        "item_type": "Ores",
+        "name": "Pyrite Ingot",
+        "quantity": 18,
+        "price": 16.13,
+        "markup": 149.35,
+        "since_date": "2024-03-10",
+        "sold_price": 16.01,
+        "sold_date": "2024-03-22"
+      },
+      "Garcen1": {
+        "item_type": "Enmatter",
+        "name": "Garcen Lubricant",
+        "quantity": 216,
+        "price": 58.57,
+        "markup": 135.58,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Alternative1": {
+        "item_type": "Ores",
+        "name": "Alternative Ingot",
+        "quantity": 3000,
+        "price": 66.22,
+        "markup": 100.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Alternative2": {
+        "item_type": "Ores",
+        "name": "Alternative Ingot",
+        "quantity": 2000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-07"
+      },
+      "Belkar1": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-03"
+      },
+      "Belkar2": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-03"
+      },
+      "Belkar3": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1000,
+        "price": 66.25,
+        "markup": 110.42,
+        "since_date": "2024-03-10",
+        "sold_price": 66.01,
+        "sold_date": "2024-04-03"
+      },
+      "Belkar4": {
+        "item_type": "Ores",
+        "name": "Belkar Ingot",
+        "quantity": 1651,
+        "price": 110.33,
+        "markup": 111.38,
+        "since_date": "2024-03-10",
+        "sold_price": 110.06,
+        "sold_date": "2024-04-03"
+      },
+      "Fert1": {
+        "item_type": "Enmatter",
+        "name": "Energized Fertilizer",
+        "quantity": 14,
+        "price": 7.6,
+        "markup": 115.5,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Oil1": {
+        "item_type": "Enmatter",
+        "name": "Oil",
+        "quantity": 2000,
+        "price": 41.0,
+        "markup": 102.5,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Oil2": {
+        "item_type": "Enmatter",
+        "name": "Oil",
+        "quantity": 1965,
+        "price": 40.32,
+        "markup": 102.6,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "Typo1": {
+        "item_type": "Enmatter",
+        "name": "Typonolic Gas",
+        "quantity": 46,
+        "price": 14.8,
+        "markup": 1072.46,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "ALIC103023768143": {
+        "item_type": "Enmatter",
+        "name": "Alicenies Gel",
+        "quantity": 218,
+        "price": 23.02,
+        "markup": 105.6,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "1900-01-01"
+      },
+      "MAGE959803858493": {
+        "item_type": "Enmatter",
+        "name": "Magerian Spray",
+        "quantity": 7,
+        "price": 14.8,
+        "markup": 422.86,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "LYST191396384945": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 4000,
+        "price": 122.56,
+        "markup": 102.13,
+        "since_date": "2024-03-10",
+        "sold_price": 122.5,
+        "sold_date": "2024-04-09"
+      },
+      "LYST303250712526": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 4000,
+        "price": 122.56,
+        "markup": 102.13,
+        "since_date": "2024-03-10",
+        "sold_price": 122.5,
+        "sold_date": "2024-04-09"
+      },
+      "LYST134036784052": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 2000,
+        "price": 61.53,
+        "markup": 102.55,
+        "since_date": "2024-03-10",
+        "sold_price": 61.5,
+        "sold_date": "2024-04-17"
+      },
+      "LYST741569470748": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 2000,
+        "price": 61.53,
+        "markup": 102.55,
+        "since_date": "2024-03-10",
+        "sold_price": 61.5,
+        "sold_date": "2024-04-17"
+      },
+      "LYST523603649711": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 2000,
+        "price": 61.53,
+        "markup": 102.55,
+        "since_date": "2024-03-10",
+        "sold_price": 61.5,
+        "sold_date": "2024-04-17"
+      },
+      "LYST761546220168": {
+        "item_type": "Ores",
+        "name": "Lysterium Ingot",
+        "quantity": 1001,
+        "price": 30.05,
+        "markup": 100.07,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IRON699245779054": {
+        "item_type": "Ores",
+        "name": "Iron Ingot ",
+        "quantity": 146,
+        "price": 58.02,
+        "markup": 101.9,
+        "since_date": "2024-03-10",
+        "sold_price": 55.0,
+        "sold_date": "2024-04-09"
+      },
+      "IRON656495710078": {
+        "item_type": "Ores",
+        "name": "Iron Ingot ",
+        "quantity": 145,
+        "price": 57.67,
+        "markup": 101.98,
+        "since_date": "2024-03-10",
+        "sold_price": 57.65,
+        "sold_date": "2024-04-09"
+      },
+      "COBA112626738630": {
+        "item_type": "Ores",
+        "name": "Cobalt Ingot ",
+        "quantity": 40,
+        "price": 26.04,
+        "markup": 108.5,
+        "since_date": "2024-03-10",
+        "sold_price": 26.0,
+        "sold_date": "2024-04-07"
+      },
+      "COBA600335459765": {
+        "item_type": "Ores",
+        "name": "Cobalt Ingot ",
+        "quantity": 40,
+        "price": 26.04,
+        "markup": 108.5,
+        "since_date": "2024-03-10",
+        "sold_price": 26.0,
+        "sold_date": "2024-04-07"
+      },
+      "ZINC699537867443": {
+        "item_type": "Ores",
+        "name": "Zinc Ingot",
+        "quantity": 186,
+        "price": 57.33,
+        "markup": 102.74,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "CALD819498777243": {
+        "item_type": "Ores",
+        "name": "Caldorite Ingot",
+        "quantity": 47,
+        "price": 24.99,
+        "markup": 104.26,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ADOM106845625618": {
+        "item_type": "Ores",
+        "name": "Adomasite Ingot",
+        "quantity": 6,
+        "price": 13.66,
+        "markup": 126.48,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "OSPR146300473369": {
+        "item_type": "Ores",
+        "name": "Ospra Ingot",
+        "quantity": 1000,
+        "price": 63.07,
+        "markup": 105.12,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "OSPR777692083221": {
+        "item_type": "Ores",
+        "name": "Ospra Ingot",
+        "quantity": 1000,
+        "price": 63.07,
+        "markup": 105.12,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "OSPR511937500412": {
+        "item_type": "Ores",
+        "name": "Ospra Ingot",
+        "quantity": 640,
+        "price": 40.44,
+        "markup": 105.31,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "AZZU346743868080": {
+        "item_type": "Ores",
+        "name": "Azzurdite Ingot",
+        "quantity": 19,
+        "price": 69.93,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "NIKS822968851321": {
+        "item_type": "Ores",
+        "name": "Niksarium Ingot",
+        "quantity": 6,
+        "price": 12.72,
+        "markup": 108.72,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "GAZZ462906875560": {
+        "item_type": "Ores",
+        "name": "Gazzurdite Ingot",
+        "quantity": 47,
+        "price": 42.42,
+        "markup": 120.34,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "COPP928098291562": {
+        "item_type": "Ores",
+        "name": "Copper Ingot",
+        "quantity": 43,
+        "price": 21.67,
+        "markup": 105.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "CUMB638679253379": {
+        "item_type": "Ores",
+        "name": "Cumbriz Ingot",
+        "quantity": 66,
+        "price": 30.72,
+        "markup": 103.43,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "GANG191224607190": {
+        "item_type": "Ores",
+        "name": "Ganganite Ingot",
+        "quantity": 21,
+        "price": 8.58,
+        "markup": 113.49,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "GOLD703653504588": {
+        "item_type": "Ores",
+        "name": "Gold Ingot",
+        "quantity": 3,
+        "price": 10.0,
+        "markup": 111.11,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ARES262216222491": {
+        "item_type": "Enmatter",
+        "name": "Ares Powder",
+        "quantity": 25,
+        "price": 14.02,
+        "markup": 107.85,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "DURU213060653755": {
+        "item_type": "Ores",
+        "name": "Durulium Ingot",
+        "quantity": 4,
+        "price": 10.93,
+        "markup": 113.85,
+        "since_date": "2024-03-10",
+        "sold_price": 10.9,
+        "sold_date": "2024-03-18"
+      },
+      "MEGA287207946485": {
+        "item_type": "Ores",
+        "name": "Megan Ingot",
+        "quantity": 11,
+        "price": 6.96,
+        "markup": 117.17,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ERDO204318764053": {
+        "item_type": "Ores",
+        "name": "Erdorium Ingot",
+        "quantity": 8,
+        "price": 12.67,
+        "markup": 131.98,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SIMP391264815677": {
+        "item_type": "Components",
+        "name": "Simple 1 Conductors",
+        "quantity": 244,
+        "price": 77.81,
+        "markup": 106.3,
+        "since_date": "2024-03-10",
+        "sold_price": 77.7,
+        "sold_date": "2024-04-07"
+      },
+      "STAN633887257524": {
+        "item_type": "Components",
+        "name": "Standard Matrix",
+        "quantity": 87,
+        "price": 52.17,
+        "markup": 115.05,
+        "since_date": "2024-03-10",
+        "sold_price": 52.0,
+        "sold_date": "2024-04-17"
+      },
+      "HARD263717315677": {
+        "item_type": "Components",
+        "name": "Hardened Alloy",
+        "quantity": 1757,
+        "price": 93.58,
+        "markup": 128.03,
+        "since_date": "2024-03-10",
+        "sold_price": 93.58,
+        "sold_date": "2024-04-17"
+      },
+      "BASI943513798796": {
+        "item_type": "Components",
+        "name": "Basic Auxiliary Socket",
+        "quantity": 428,
+        "price": 6.84,
+        "markup": 117.51,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BASI169123237696": {
+        "item_type": "Components",
+        "name": "Basic Bearings",
+        "quantity": 678,
+        "price": 35.42,
+        "markup": 130.6,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BASI804020731266": {
+        "item_type": "Components",
+        "name": "Basic Sheet Metal",
+        "quantity": 875,
+        "price": 43.31,
+        "markup": 126.27,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "STAN638006085181": {
+        "item_type": "Components",
+        "name": "Standard Plate",
+        "quantity": 3013,
+        "price": 43.17,
+        "markup": 111.94,
+        "since_date": "2024-03-10",
+        "sold_price": 43.06,
+        "sold_date": "2024-04-07"
+      },
+      "BASI182034891431": {
+        "item_type": "Texture Extractor",
+        "name": "Basic Stone Extractor",
+        "quantity": 1856,
+        "price": 26.75,
+        "markup": 144.13,
+        "since_date": "2024-03-10",
+        "sold_price": 26.56,
+        "sold_date": "2024-04-17"
+      },
+      "RATI186988963452": {
+        "item_type": "Components",
+        "name": "Rationalizer Component",
+        "quantity": 180,
+        "price": 6.42,
+        "markup": 118.89,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "HAIR686940685112": {
+        "item_type": "Beauty",
+        "name": "Hair Spray",
+        "quantity": 78,
+        "price": 7.25,
+        "markup": 154.91,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2013-01-01"
+      },
+      "SURF911920169879": {
+        "item_type": "Components",
+        "name": "Surface Hardener Component",
+        "quantity": 300,
+        "price": 7.02,
+        "markup": 117.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "HAIR35010074622": {
+        "item_type": "Beauty",
+        "name": "Hair Gel",
+        "quantity": 68,
+        "price": 10.68,
+        "markup": 120.81,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROUG603047770202": {
+        "item_type": "Beauty",
+        "name": "Rouge (Pink-Orange)",
+        "quantity": 3,
+        "price": 27.29,
+        "markup": 181.93,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "MOLI182876528040": {
+        "item_type": "Animal Parts",
+        "name": "Molisk Enamel Buttons",
+        "quantity": 136,
+        "price": 5.1,
+        "markup": 125.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "INFE948495880793": {
+        "item_type": "Texture Extractor",
+        "name": "Inferior Cloth Extractor",
+        "quantity": 2015,
+        "price": 23.03,
+        "markup": 114.29,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM102076293464": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 4000,
+        "price": 204.09,
+        "markup": 102.05,
+        "since_date": "2024-03-10",
+        "sold_price": 204.0,
+        "sold_date": "2024-04-09"
+      },
+      "ANIM258343053958": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM712139963502": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM976108715417": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM822937466536": {
+        "item_type": "Animal Parts",
+        "name": "Animal Eye Oil",
+        "quantity": 1000,
+        "price": 51.12,
+        "markup": 102.24,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO962396650608": {
+        "item_type": "Robot Parts",
+        "name": "Robot Weapon Sight",
+        "quantity": 41,
+        "price": 9.63,
+        "markup": 111.85,
+        "since_date": "2024-03-10",
+        "sold_price": 9.61,
+        "sold_date": "2024-04-08"
+      },
+      "SOCK480976493901": {
+        "item_type": "Components",
+        "name": "Socket 1 Component",
+        "quantity": 119,
+        "price": 12.92,
+        "markup": 108.57,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK159091780248": {
+        "item_type": "Components",
+        "name": "Socket 2 Component",
+        "quantity": 132,
+        "price": 14.22,
+        "markup": 107.73,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK874098793713": {
+        "item_type": "Components",
+        "name": "Socket 3 Component",
+        "quantity": 131,
+        "price": 14.12,
+        "markup": 107.79,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK324165257082": {
+        "item_type": "Components",
+        "name": "Socket 4 Component",
+        "quantity": 127,
+        "price": 13.7,
+        "markup": 107.87,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK313837876468": {
+        "item_type": "Components",
+        "name": "Socket 5 Component",
+        "quantity": 19,
+        "price": 2.9,
+        "markup": 152.63,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK854306699089": {
+        "item_type": "Components",
+        "name": "Socket 6 Component",
+        "quantity": 30,
+        "price": 4.02,
+        "markup": 134.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK659573008435": {
+        "item_type": "Components",
+        "name": "Socket 7 Component",
+        "quantity": 19,
+        "price": 2.92,
+        "markup": 153.68,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SOCK461994125466": {
+        "item_type": "Components",
+        "name": "Socket 8 Component",
+        "quantity": 14,
+        "price": 2.42,
+        "markup": 172.86,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "SHRA376575738695": {
+        "item_type": "Residue",
+        "name": "Shrapnel",
+        "quantity": 1000000,
+        "price": 101.02,
+        "markup": 101.02,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM489239678600": {
+        "item_type": "Residue",
+        "name": "Animal Oil Residue",
+        "quantity": 13742,
+        "price": 138.44,
+        "markup": 100.74,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "META957327482189": {
+        "item_type": "Residue",
+        "name": "Metal Residue",
+        "quantity": 11869,
+        "price": 121.25,
+        "markup": 102.16,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "FOCU301047129734": {
+        "item_type": "Components",
+        "name": "Focus Lens Component",
+        "quantity": 35,
+        "price": 8.0,
+        "markup": 114.29,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM163211723098": {
+        "item_type": "Animal Parts",
+        "name": "Animal Muscle Oil",
+        "quantity": 1032,
+        "price": 31.98,
+        "markup": 103.29,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM148943144415": {
+        "item_type": "Animal Parts",
+        "name": "Animal Thyroid Oil",
+        "quantity": 744,
+        "price": 76.44,
+        "markup": 102.74,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ANIM782720249689": {
+        "item_type": "Animal Parts",
+        "name": "Animal Thyroid Oil",
+        "quantity": 500,
+        "price": 51.43,
+        "markup": 102.86,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO192423011646": {
+        "item_type": "Robot Parts",
+        "name": "Robot Low-Loss Link Cable",
+        "quantity": 1325,
+        "price": 32.82,
+        "markup": 103.21,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO303459425050": {
+        "item_type": "Robot Parts",
+        "name": "Robot Filter",
+        "quantity": 904,
+        "price": 33.56,
+        "markup": 103.12,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "ROBO128276277298": {
+        "item_type": "Robot Parts",
+        "name": "Robot Weapon Grip",
+        "quantity": 874,
+        "price": 53.86,
+        "markup": 106.25,
+        "since_date": "2024-03-16",
+        "sold_price": 53.79,
+        "sold_date": "2024-04-07"
+      }
+    }
+  },
+  "Shop 3": {
+    "items": {
+      "BreerM468289736394": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BreerM982632786455": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BreerM860688374481": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BreerM627307935659": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Castor933865070701": {
+        "category": "Weapon",
+        "name": "Castorian Pioneer EnBlade-3 (L)",
+        "price": 9.71,
+        "tt": 8.64,
+        "markup": 112.38,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Castor120224190219": {
+        "category": "Weapon",
+        "name": "Castorian Pioneer EnBlade-3 (L)",
+        "price": 19.15,
+        "tt": 17.0,
+        "markup": 112.65,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "EWEEP-991879178248": {
+        "category": "Weapon",
+        "name": "EWE EP-2 Proton (L)",
+        "price": 1.78,
+        "tt": 0.19999999999999996,
+        "markup": 890.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "EWEEP-947345137963": {
+        "category": "Weapon",
+        "name": "EWE EP-2 Proton (L)",
+        "price": 1.78,
+        "tt": 0.2,
+        "markup": 890.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLB697099303117": {
+        "category": "Weapon",
+        "name": "Isis LBC 1 (L)",
+        "price": 11.77,
+        "tt": 9.98,
+        "markup": 117.94,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLB867788264259": {
+        "category": "Weapon",
+        "name": "Isis LBP 1 (L)",
+        "price": 6.19,
+        "tt": 5.17,
+        "markup": 119.73,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLB478926703091": {
+        "category": "Weapon",
+        "name": "Isis LBP 4 (L)",
+        "price": 16.52,
+        "tt": 13.96,
+        "markup": 118.34,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLS194465083784": {
+        "category": "Weapon",
+        "name": "Isis LSB 4 (L)",
+        "price": 50.97,
+        "tt": 48.72,
+        "markup": 104.62,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Jester166613024828": {
+        "category": "Weapon",
+        "name": "Jester D-1",
+        "price": 2.24,
+        "tt": 1.22,
+        "markup": 183.61,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Jester230818945512": {
+        "category": "Weapon",
+        "name": "Jester D-1",
+        "price": 2.51,
+        "tt": 1.51,
+        "markup": 166.23,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Jester22582920136": {
+        "category": "Weapon",
+        "name": "Jester D-1",
+        "price": 3.37,
+        "tt": 2.35,
+        "markup": 143.4,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat863006708050": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat656920560563": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat410269450203": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat698845107091": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Shogun885067837369": {
+        "category": "Armor Part",
+        "name": "Shogun Arm Guards (F)",
+        "price": 10.23,
+        "tt": 6.03,
+        "markup": 169.65,
+        "since_date": "2024-03-11",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Shogun865065915171": {
+        "category": "Armor Part",
+        "name": "Shogun Thigh Guards (F)",
+        "price": 9.08,
+        "tt": 4.98,
+        "markup": 182.33,
+        "since_date": "2024-03-11",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde51764267265": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.15,
+        "tt": 0.13,
+        "markup": 884.62,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde924435210969": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.15,
+        "tt": 0.12,
+        "markup": 958.33,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde851325809489": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.17,
+        "tt": 0.16,
+        "markup": 731.25,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde45735465739": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.3,
+        "tt": 0.18,
+        "markup": 722.22,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde743161689360": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.16,
+        "tt": 0.14,
+        "markup": 828.57,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde468096279855": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.3,
+        "tt": 0.18,
+        "markup": 722.22,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde637858212835": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.3,
+        "tt": 0.18,
+        "markup": 722.22,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom981603284440": {
+        "category": "Weapon",
+        "name": "Sollomate Azuro (L)",
+        "price": 1.98,
+        "tt": 0.7,
+        "markup": 282.86,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom863107864669": {
+        "category": "Weapon",
+        "name": "Sollomate Azuro (L)",
+        "price": 1.98,
+        "tt": 0.7,
+        "markup": 282.86,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom560568273906": {
+        "category": "Weapon",
+        "name": "Sollomate Azuro (L)",
+        "price": 1.39,
+        "tt": 0.38,
+        "markup": 365.79,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom332678117646": {
+        "category": "Weapon",
+        "name": "Sollomate Rubio (L)",
+        "price": 1.62,
+        "tt": 0.09,
+        "markup": 1800.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom482088453857": {
+        "category": "Weapon",
+        "name": "Sollomate Rubio (L)",
+        "price": 1.06,
+        "tt": 0.05,
+        "markup": 2120.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom338806554139": {
+        "category": "Weapon",
+        "name": "Sollomate Rubio (L)",
+        "price": 1.05,
+        "tt": 0.03,
+        "markup": 3500.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Vigila238451454576": {
+        "category": "Armor Part",
+        "name": "Vigilante Gloves (F)",
+        "price": 31.92,
+        "tt": 7.23,
+        "markup": 441.49,
+        "since_date": "2024-03-11",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Weapon121654722588": {
+        "category": "Weapon Enhancer",
+        "name": "Weapon Accuracy Enhancer 1",
+        "price": 8.25,
+        "tt": 2.0,
+        "markup": 412.5,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      }
+    },
+    "materials": {}
+  }
+}
