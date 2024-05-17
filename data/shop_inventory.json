@@ -805,7 +805,368 @@
     }
   },
   "Shop 3": {
-    "items": {},
+    "items": {
+      "BreerM468289736394": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BreerM982632786455": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BreerM860688374481": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "BreerM627307935659": {
+        "category": "Weapon",
+        "name": "Breer M1a (L)",
+        "price": 24.45,
+        "tt": 22.3,
+        "markup": 109.64,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Castor933865070701": {
+        "category": "Weapon",
+        "name": "Castorian Pioneer EnBlade-3 (L)",
+        "price": 9.71,
+        "tt": 8.64,
+        "markup": 112.38,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Castor120224190219": {
+        "category": "Weapon",
+        "name": "Castorian Pioneer EnBlade-3 (L)",
+        "price": 19.15,
+        "tt": 17.0,
+        "markup": 112.65,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "EWEEP-991879178248": {
+        "category": "Weapon",
+        "name": "EWE EP-2 Proton (L)",
+        "price": 1.78,
+        "tt": 0.19999999999999996,
+        "markup": 890.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "EWEEP-947345137963": {
+        "category": "Weapon",
+        "name": "EWE EP-2 Proton (L)",
+        "price": 1.78,
+        "tt": 0.2,
+        "markup": 890.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLB697099303117": {
+        "category": "Weapon",
+        "name": "Isis LBC 1 (L)",
+        "price": 11.77,
+        "tt": 9.98,
+        "markup": 117.94,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLB867788264259": {
+        "category": "Weapon",
+        "name": "Isis LBP 1 (L)",
+        "price": 6.19,
+        "tt": 5.17,
+        "markup": 119.73,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLB478926703091": {
+        "category": "Weapon",
+        "name": "Isis LBP 4 (L)",
+        "price": 16.52,
+        "tt": 13.96,
+        "markup": 118.34,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "IsisLS194465083784": {
+        "category": "Weapon",
+        "name": "Isis LSB 4 (L)",
+        "price": 50.97,
+        "tt": 48.72,
+        "markup": 104.62,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Jester166613024828": {
+        "category": "Weapon",
+        "name": "Jester D-1",
+        "price": 2.24,
+        "tt": 1.22,
+        "markup": 183.61,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Jester230818945512": {
+        "category": "Weapon",
+        "name": "Jester D-1",
+        "price": 2.51,
+        "tt": 1.51,
+        "markup": 166.23,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Jester22582920136": {
+        "category": "Weapon",
+        "name": "Jester D-1",
+        "price": 3.37,
+        "tt": 2.35,
+        "markup": 143.4,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat863006708050": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat656920560563": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat410269450203": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Omegat698845107091": {
+        "category": "Weapon Attachment",
+        "name": "Omegaton B101 (L)",
+        "price": 1.22,
+        "tt": 0.08,
+        "markup": 1525.0,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Shogun885067837369": {
+        "category": "Armor Part",
+        "name": "Shogun Arm Guards (F)",
+        "price": 10.23,
+        "tt": 6.03,
+        "markup": 169.65,
+        "since_date": "2024-03-11",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Shogun865065915171": {
+        "category": "Armor Part",
+        "name": "Shogun Thigh Guards (F)",
+        "price": 9.08,
+        "tt": 4.98,
+        "markup": 182.33,
+        "since_date": "2024-03-11",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde51764267265": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.15,
+        "tt": 0.13,
+        "markup": 884.62,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde924435210969": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.15,
+        "tt": 0.12,
+        "markup": 958.33,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde851325809489": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.17,
+        "tt": 0.16,
+        "markup": 731.25,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde45735465739": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.3,
+        "tt": 0.18,
+        "markup": 722.22,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde743161689360": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.16,
+        "tt": 0.14,
+        "markup": 828.57,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde468096279855": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.3,
+        "tt": 0.18,
+        "markup": 722.22,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Skilde637858212835": {
+        "category": "Weapon",
+        "name": "Skildek Lancehead (L)",
+        "price": 1.3,
+        "tt": 0.18,
+        "markup": 722.22,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom981603284440": {
+        "category": "Weapon",
+        "name": "Sollomate Azuro (L)",
+        "price": 1.98,
+        "tt": 0.7,
+        "markup": 282.86,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom863107864669": {
+        "category": "Weapon",
+        "name": "Sollomate Azuro (L)",
+        "price": 1.98,
+        "tt": 0.7,
+        "markup": 282.86,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom560568273906": {
+        "category": "Weapon",
+        "name": "Sollomate Azuro (L)",
+        "price": 1.39,
+        "tt": 0.38,
+        "markup": 365.79,
+        "since_date": "2024-03-16",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom332678117646": {
+        "category": "Weapon",
+        "name": "Sollomate Rubio (L)",
+        "price": 1.62,
+        "tt": 0.09,
+        "markup": 1800.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom482088453857": {
+        "category": "Weapon",
+        "name": "Sollomate Rubio (L)",
+        "price": 1.06,
+        "tt": 0.05,
+        "markup": 2120.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Sollom338806554139": {
+        "category": "Weapon",
+        "name": "Sollomate Rubio (L)",
+        "price": 1.05,
+        "tt": 0.03,
+        "markup": 3500.0,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Vigila238451454576": {
+        "category": "Armor Part",
+        "name": "Vigilante Gloves (F)",
+        "price": 31.92,
+        "tt": 7.23,
+        "markup": 441.49,
+        "since_date": "2024-03-11",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      },
+      "Weapon121654722588": {
+        "category": "Weapon Enhancer",
+        "name": "Weapon Accuracy Enhancer 1",
+        "price": 8.25,
+        "tt": 2.0,
+        "markup": 412.5,
+        "since_date": "2024-03-10",
+        "sold_price": 0.0,
+        "sold_date": "2024-01-01"
+      }
+    },
     "materials": {}
   }
 }

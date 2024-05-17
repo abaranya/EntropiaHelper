@@ -42,6 +42,7 @@ class InventoryWindow(QMainWindow):
         # Add item button
         self.add_item_button = QPushButton("Add New Item")
         self.add_item_button.clicked.connect(self.on_add_item)
+        self.add_item_button.setDefault(True)
         layout.addWidget(self.add_item_button)
 
         # Save inventory button
@@ -89,6 +90,7 @@ class InventoryWindow(QMainWindow):
 
         # Update the user interface to reflect the change
         self.load_inventory(shop_name)
+        self.add_item_button.setDefault(True)
 
     def on_add_item(self):
         try:
@@ -104,6 +106,8 @@ class InventoryWindow(QMainWindow):
                     package, new_material = dialog.submit_material()
                     self.shop_manager.add_material(self.shop_name, package, new_material)
                     self.material_table.add_material(package, new_material)
+
+            self.add_item_button.setDefault(True)
         except Exception as e:
             QMessageBox.critical(self, "Error", f"Failed to add item/material: {str(e)}")
 
